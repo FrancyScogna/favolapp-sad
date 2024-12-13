@@ -1,0 +1,6 @@
+{
+  "version": "2018-05-29",
+  "operation": "Scan",
+  "limit": $util.defaultIfNull($ctx.args.limit, 10),
+  "nextToken": $util.toJson($util.defaultIfNull($ctx.args.nextToken, null))
+}

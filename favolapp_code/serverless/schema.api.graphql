@@ -1,0 +1,310 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  getMyUser: User! 
+    @aws_auth(cognito_groups: ["admin", "tutor"])
+  getUsersList(limit: Int, nextToken: String): UserConnection
+    @aws_auth(cognito_groups: ["admin"])
+  searchAllUsers(query: String!, limit: Int, nextToken: String): UserConnection
+    @aws_auth(cognito_groups: ["admin"])
+  getPazientiList(limit: Int, nextToken: String): PazienteConnection
+    @aws_auth(cognito_groups: ["admin"])
+  searchAllPazienti(query: String!, limit: Int, nextToken: String): PazienteConnection
+    @aws_auth(cognito_groups: ["admin"])
+  getMyPazienti(limit: Int, nextToken: String): PazienteHydrate
+    @aws_auth(cognito_groups: ["admin", "tutor"])
+  searchMyPazienti(query: String!, limit: Int, nextToken: String): PazienteConnection
+    @aws_auth(cognito_groups: ["admin", "tutor"])
+  getCommonPazienti(userId: ID!, limit: Int, nextToken: String): PazienteHydrate
+    @aws_auth(cognito_groups: ["admin", "tutor"])
+  searchCommonPazienti(userId: ID!, query: String!, limit: Int, nextToken: String): PazienteConnection
+    @aws_auth(cognito_groups: ["admin", "tutor"])
+  getPazientiByUserId(userId: ID!, limit: Int, nextToken: String): PazienteHydrate
+    @aws_auth(cognito_groups: ["admin"])
+  searchPazientiByUserId(userId: ID!, query: String!, limit: Int, nextToken: String): PazienteConnection
+    @aws_auth(cognito_groups: ["admin"])
+  getUser(userId: ID!): User
+    @aws_auth(cognito_groups: ["admin", "tutor"])
+  getPaziente(pazienteId: ID!): Paziente
+    @aws_auth(cognito_groups: ["admin", "tutor"])
+  getAllReports(limit: Int, nextToken: String): ReportsConnection
+    @aws_auth(cognito_groups: ["admin"])
+  getMyReport(limit: Int, nextToken: String): ReportsConnection
+    @aws_auth(cognito_groups: ["admin","tutor"])
+  getColleguesReports(limit: Int, nextToken: String): ReportsConnection
+    @aws_auth(cognito_groups: ["admin","tutor"])
+  getMyCollegues(limit: Int, nextToken: String): UserConnection
+    @aws_auth(cognito_groups: ["admin","tutor"])
+  searchMyCollegues(query: String!, limit: Int, nextToken: String): UserConnection
+    @aws_auth(cognito_groups: ["admin","tutor"])
+  getLogs(tab: String!, filter: FilterLogsInput, limit: Int, nextToken: String): LogConnection
+    @aws_auth(cognito_groups: ["admin"])
+  getReportsByOtherUser(otherUserId: ID!, limit: Int, nextToken: String): ReportsConnection
+    @aws_auth(cognito_groups: ["admin", "tutor"])
+}
+
+type Mutation {
+  signUpNewUser(newUser: NewUser!): Boolean!
+    @aws_auth(cognito_groups: ["admin"])
+  deleteUser(userId: ID!): Boolean!
+    @aws_auth(cognito_groups: ["admin"])
+  updateAvatarURL(path: String!): String!
+    @aws_auth(cognito_groups: ["admin", "tutor"])
+  editUserInfo(editUser: EditUser!): String!
+    @aws_auth(cognito_groups: ["admin"])
+  createNewPaziente(newPaziente: NewPaziente!): Boolean!
+    @aws_auth(cognito_groups: ["admin"])
+  editPaziente(editPaziente: EditPaziente!): Boolean!
+    @aws_auth(cognito_groups: ["admin"])
+  markReportAsSeen(pazienteId: ID!, reportId: ID!): Report!
+    @aws_auth(cognito_groups: ["admin", "tutor"])
+  createNewReport(pazienteId: ID!, description: String!, contenuto: String!, tutorId: ID!): Boolean!
+    @aws_auth(cognito_groups: ["admin", "tutor"])
+  editReport(reportId: ID!, description: String!, contenuto: String!): Report!
+    @aws_auth(cognito_groups: ["admin", "tutor"])
+}
+
+type User {
+  id: ID!
+  email: String!
+  name: String!
+  surname: String!
+  role: UserRole!
+  birthdate: AWSDate!
+  phone_number: String!
+  gender: String!
+  codfis: String!
+  provincia: String!
+  comune: String!
+  title: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  pazientiCount: Int!
+  tasksCount: Int!
+  reportsCount: Int!
+  avatarURL: String
+  active: String
+}
+
+type Paziente {
+  id: ID!
+  name: String!
+  surname: String!
+  birthdate: AWSDate!
+  phone_number: String
+  gender: String!
+  email: String
+  codfis: String!
+  provincia: String!
+  comune: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  info: String
+  treatment: String!
+  sessions: [Session]
+  sessionsCount: Int!
+  tutors: [User]
+  tutorsCount: Int!
+}
+
+type Report {
+  reportId: ID!
+  pazienteId: ID!
+  tutorId: ID!  
+  description: String!
+  seenBy: [String]
+  contenuto: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  paziente: Paziente
+  tutor: User
+}
+
+type Session {
+  id: ID!
+  pazienteId: ID!
+  weekDay: WeekDays!
+  startTime: String!
+  endTime: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Log {
+  id: String!
+  timestamp: String
+  author: User
+  operationName: String
+  operationType: String
+  operationMessage: String
+  operationResult: String
+  error: Boolean
+  errorMessage: String
+  errorType: String
+}
+
+type UserConnection {
+  items: [User]
+  nextToken: String
+}
+
+type PazienteConnection {
+  items: [Paziente]
+  nextToken: String
+}
+
+type ReportsConnection {
+  items: [Report]
+  nextToken: String
+}
+
+type PazienteHydrate {
+  items: [Paziente]
+  nextToken: String
+}
+
+type LogConnection {
+  items: [Log]
+  nextToken: String
+}
+
+enum UserRole {
+  ADMIN
+  TUTOR
+}
+
+enum WeekDays {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+input NewUser {
+  email: String!
+  name: String!
+  surname: String!
+  role: UserRole!
+  birthdate: AWSDate!
+  phone_number: String!
+  gender: String!
+  codfis: String!
+  provincia: String!
+  comune: String!
+  title: String!
+}
+
+input NewPaziente {
+  name: String!
+  surname: String!
+  birthdate: AWSDate!
+  phone_number: String
+  gender: String!
+  email: String
+  codfis: String!
+  provincia: String!
+  comune: String!
+  info: String
+  treatment: String!
+  sessions: [NewSession]
+  sessionsCount: Int!
+  tutors: [IDUser]
+  tutorsCount: Int!
+}
+
+input NewSession {
+  weekDay: WeekDays!
+  startTime: String!
+  endTime: String!
+}
+
+input IDUser {
+  id: ID!
+}
+
+input EditUser {
+  id: ID!
+  name: String
+  surname: String
+  birthdate: AWSDate
+  phone_number: String
+  gender: String
+  codfis: String
+  provincia: String
+  comune: String
+  title: String
+}
+
+input EditPaziente {
+  id: ID!
+  name: String
+  surname: String
+  birthdate: AWSDate
+  phone_number: String
+  gender: String
+  email: String
+  codfis: String
+  provincia: String
+  comune: String
+  info: String
+  treatment: String
+  sessionsCount: Int
+  tutorsCount: Int
+  sessions: [EditPazienteSessions]
+  tutors: [EditPazienteTutors]
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+input EditPazienteSessions {
+  addedItems: [EditPazienteSession]
+  updatedItems: [EditPazienteSession]
+  deletedItems: [EditPazienteSession]
+}
+
+input EditPazienteSession {
+id: ID
+pazienteId: ID
+weekDay: WeekDays
+startTime: String
+endTime: String
+createdAt: AWSDateTime
+updatedAt: AWSDateTime
+}
+
+input EditPazienteTutors {
+ addedItems: [UserInput]
+ deletedItems: [UserInput]
+}
+
+input UserInput {
+  id: ID
+  email: String
+  name: String
+  surname: String
+  role: UserRole
+  birthdate: AWSDate
+  phone_number: String
+  gender: String
+  codfis: String
+  provincia: String
+  comune: String
+  title: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  pazientiCount: Int
+  tasksCount: Int
+  reportsCount: Int
+  avatarURL: String
+}
+
+input FilterLogsInput {
+  input: String!
+  type: String!
+}

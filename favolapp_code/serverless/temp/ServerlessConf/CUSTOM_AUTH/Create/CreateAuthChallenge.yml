@@ -1,0 +1,34 @@
+Code:
+  Location: https://awslambda-eu-west-1-tasks.s3.eu-west-1.amazonaws.com/snapshots/654654599269/CreateAuthChallenge-a133cd5b-b85e-49e2-8b6b-4c904f665a0f?versionId=GynjhxisvwugKBp4KBeE6FSfRVONKGRw&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEGIaCWV1LXdlc3QtMSJGMEQCIBZaiV5%2B1FtMS7zKcZRH6s1nvIkJKBOH3TeZZ1cDMeeXAiB3Gkpy1ehJPiWmogZdy%2FBe25JatV7pLpCXI1d8w5O9Ryq5BQjb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAQaDDk1NDM2OTA4MjUxMSIMP1tsQxSPiGJUR0K4Ko0Fleh0jy%2BloseWgNNXcdMbVy0xPMNVZVMhy0ozMT%2BatW8d9uHD8uLwcqNyD5rAIXCH%2BOlpAomhQASIAi0M%2BVwbjQb1cfEax5NeF2vY2cZwARI2ARDopGQ7HyzqU1FlnQwY87OG4JnQbdPAWQZIQyg0Y%2FwBoNhg1lWZ5pG6%2B%2BdusJ5bt2Au7611uJAW4TrUR3B6ZEfOaXHeJ9Q20mYEeohDtD9n8SU3hMDFkHgc%2BkZGpOvNYFTCrD%2BItnP8MyhhZxm%2BAGcTcrZZ80tjgV%2FghnAgwXvujpLr7%2Fw%2BTQv9wF3KCmGYLQZnGnGl2K%2Fk1HijY61COsWQ1qXZzL7bD64k2UTjfw7N8uTiPUHj30bC6QNBqqLEjJTRmoKvx%2BK6mOI303UvG1NBsI%2FMucYOUw04jlbq0zda%2B6ZBQThHFmn9tcXIP5gxYZSlTrgguX%2Bn0OWjsohKlXuAIzdP4EVOfGSCHsLOvNs5Or8XbJjIIkdEJx5M7Ot6cgjDnReUdr3DjqjXzSUeE8T9eRoljEoiiG0JjDSd3gdx17UDkXmjoeCVDdkmH8bfNnIdGDH1luoNTcw92r1ZBlMgfNy4z4tpV3mX8fZKNwljdTxVb11LQor7OBx3Ecu1yNJap1SFiHI9YJ03qUXfh3Vi6l52Y3DsXYw6DZ6a3se4A1lBhQIrZu29AOqniK%2B2W5Kmq7ncs0Z3vAlt3NOX1BtsZk8fgSFZRNrVg5EkIcRhHlu7aViGybURrUVp1VT8mgIWKN7M1UEGoACuRZfwEUCDqVLobRfmL%2B0cdLmzfyL6jkHX1x%2B0xtV24unE9WbSit5kCseq15hzIyQdA4jmwsQCUiTbU6O1p%2B55eY22A5bdrDbqngDuIhfogo4w9ofTsgY6sgFHwqZL9PuuOnh7bxMx9xwqOurymIiGGG6OWkyAkl9HUH3Su%2FwvoIHQGIwV0VfRNA0Wh50DTtERDlGtbMbaBjBzdWiLPVxS3kFMDlAE0t%2BMBl8OLGE41BOKuIzvDEFkUqWrR%2FaRx%2BpnClEzgjJYvnrsEerLWSQytEB9%2FWTw1d7TFa5Qi0R7fnQnZlHnOdcRA5AGmRreY6KauCvo62uHsy8xLo%2FRq2OqkFqsr0429v2rd9l6&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240527T182854Z&X-Amz-SignedHeaders=host&X-Amz-Expires=600&X-Amz-Credential=ASIA54NGUQSH7GMGT3HH%2F20240527%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Signature=86395b70ca2434bdd03eb5bb37961bca8da557cf92e030913bf7d091752b474b
+  RepositoryType: S3
+Configuration:
+  Architectures:
+  - x86_64
+  CodeSha256: aHg/D3kuXbU9uFaaxM7hwZE5WzOGaRBgLdGJ+WUgTPw=
+  CodeSize: 381
+  Description: ''
+  EphemeralStorage:
+    Size: 512
+  FunctionArn: arn:aws:lambda:eu-west-1:654654599269:function:CreateAuthChallenge
+  FunctionName: CreateAuthChallenge
+  Handler: index.handler
+  LastModified: 2024-05-27T15:54:18.000+0000
+  LastUpdateStatus: Successful
+  LoggingConfig:
+    LogFormat: Text
+    LogGroup: /aws/lambda/CreateAuthChallenge
+  MemorySize: 128
+  PackageType: Zip
+  RevisionId: 5e1ccab3-05be-4543-beb6-d533493822ca
+  Role: arn:aws:iam::654654599269:role/service-role/CreateAuthChallengeRole
+  Runtime: nodejs16.x
+  RuntimeVersionConfig:
+    RuntimeVersionArn: arn:aws:lambda:eu-west-1::runtime:30606511772fdc0f370d2d81900da3f8c7cd524f718237c6bebd61e4e1e853fa
+  SnapStart:
+    ApplyOn: None
+    OptimizationStatus: Off
+  State: Active
+  Timeout: 3
+  TracingConfig:
+    Mode: PassThrough
+  Version: $LATEST

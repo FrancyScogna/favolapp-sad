@@ -1,0 +1,39 @@
+.dialog .dialog-title .text {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.dialog .dialog-content .description {
+  margin-bottom: 15px;
+}
+
+.dialog .dialog-content .alert {
+  margin-bottom: 15px;
+}
+
+.dialog .dialog-content .textfield {
+  width: 100%;
+}
+
+.dialog .dialog-content .resend-email-text {
+  font-size: 15px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: 5px;
+  color: #1976d2;
+  cursor: pointer;
+}
+
+.dialog-cancel .dialog-title .text {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+@media screen and (max-width: 470px) {
+  .dialog .MuiPaper-root {
+    margin: 0px !important;
+  }
+  .dialog .dialog-content .textfield {
+    margin-top: 15px;
+  }
+}

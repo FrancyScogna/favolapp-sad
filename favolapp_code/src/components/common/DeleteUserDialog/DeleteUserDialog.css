@@ -1,0 +1,31 @@
+.deleteuser-dialog {
+  padding: 0;
+  margin: 0;
+}
+
+.deleteuser-dialog .MuiPaper-root {
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.deleteuser-dialog .dialog-title {
+  padding-bottom: 7px;
+  display: flex;
+  align-items: center;
+}
+
+.deleteuser-dialog .dialog-title .title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.deleteuser-dialog .dialog-content {
+  padding: 0;
+  padding-inline: 24px;
+  margin: 0;
+}
+
+.deleteuser-dialog .dialog-content .description {
+  margin-top: 20px;
+}

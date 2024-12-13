@@ -1,0 +1,27 @@
+#set($errorInfo = {})
+#if($context.prev.result.error)
+  #set($errorInfo = {
+    "message": "$context.prev.result.error.message",
+    "type": "$context.prev.result.error.type"
+  })
+#else
+  #set($errorInfo = {
+    "message": "No error",
+    "type": "None"
+  })
+#end
+
+{
+  "version": "2018-05-29",
+  "operation": "Invoke",
+  "payload": {
+    "body": {
+      "invokedFrom": "${ctx.identity.username}",
+      "operationResult": $util.toJson($context.prev.result),
+      "operationName": $util.toJson($context.info.fieldName),
+      "operationType": $util.toJson($context.info.parentTypeName),
+      "operationArguments": $util.toJson($context.arguments),
+      "error":  $util.toJson($errorInfo)
+    }
+  }
+}

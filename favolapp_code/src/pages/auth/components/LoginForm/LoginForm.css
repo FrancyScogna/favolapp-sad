@@ -1,0 +1,79 @@
+.loginform-grid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.loginform-grid .grid-item {
+  display: flex;
+  width: 100%;
+  padding: 5px;
+  padding-inline: 15px;
+}
+
+.loginform-grid .grid-item .alert {
+  width: 100%;
+}
+
+.loginform-grid .grid-item .title-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.loginform-grid .grid-item .title-container .title {
+  color: #007fff;
+  font-size: 22px;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.loginform-grid .grid-item .rememberme-container {
+  display: flex;
+  justify-content: right;
+  width: 100%;
+}
+
+.loginform-grid .grid-item .rememberme-container .checkbox-label {
+  justify-content: center;
+  display: flex;
+  margin-right: 0px;
+  color: #007fff;
+}
+
+.loginform-grid .grid-item .rememberme-container .checkbox {
+  font-size: 22px;
+  color: #007fff;
+}
+
+.loginform-grid .grid-item .loginbutton-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.loginform-grid .grid-item .loginbutton-container .button {
+  border-radius: 20px;
+}
+
+.loginform-grid .divider {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.loginform-grid .grid-item .forgotpassword-container {
+  width: 100%;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.loginform-grid .grid-item .forgotpassword-container .button {
+  border-radius: 20px;
+}

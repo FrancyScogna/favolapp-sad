@@ -1,0 +1,12 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  getUser(userId: ID!): Boolean!
+}
+
+type Mutation {
+  setUser(userId: ID!): Boolean!
+}

@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "pkief.material-icon-theme",
+    "esbenp.prettier-vscode",
+    "xabikos.javascriptsnippets",
+    "dsznajder.es7-react-js-snippets",
+    "eamodio.gitlens"
+  ]
+}

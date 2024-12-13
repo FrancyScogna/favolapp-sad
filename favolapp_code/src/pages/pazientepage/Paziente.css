@@ -1,0 +1,169 @@
+.loading-paziente {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.paziente-page {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
+.paziente-page .title {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+.paziente-page .title .buttons {
+  display: flex;
+  width: 100%;
+}
+
+.paziente-page .title .buttons .button {
+  margin-top: 5px;
+  margin-right: 5px;
+  border-radius: 10px;
+}
+
+.paziente-page .title .text {
+  color: black;
+  font-size: 30px;
+  font-weight: bold;
+  margin-right: 30px;
+}
+
+.paziente-page .info-box {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.paziente-page .info-box .grid-container .grid-item .info-title {
+  color: black;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.paziente-page .divider {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.paziente-page .info-box .grid-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 20px;
+  margin-bottom: 0px;
+}
+
+.paziente-page .info-box .grid-container .grid-item {
+  display: flex;
+  width: 100%;
+}
+
+.paziente-page .info-box .grid-container .grid-item .attribute {
+  color: black;
+  font-size: 20px;
+}
+
+.paziente-page .info-box .grid-container .grid-item .value {
+  color: black;
+  margin-left: 5px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.paziente-page .sessions-box {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.paziente-page .sessions-box .grid-container .grid-item .sessions-title {
+  color: black;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.paziente-page .divider {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.paziente-page .sessions-box .grid-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 20px;
+}
+
+.paziente-page .sessions-box .grid-container .grid-item {
+  display: flex;
+  width: 100%;
+}
+
+.paziente-page .sessions-box .grid-container .grid-item .session-attribute {
+  color: black;
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.paziente-page .sessions-box .grid-container .grid-item .session-value {
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.paziente-page .sessions-box .grid-container .grid-item .session-empty {
+  color: black;
+  font-size: 17px;
+}
+
+.paziente-page .tutors-box {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.paziente-page .tutors-box .grid-container .grid-item .tutors-title {
+  color: black;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.paziente-page .divider {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.paziente-page .tutors-box .grid-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 20px;
+}
+
+.paziente-page .tutors-box .grid-container .grid-item {
+  display: flex;
+  width: 100%;
+}
+
+.paziente-page .tutors-box .grid-container .grid-item .tutor-value {
+  color: black;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.paziente-page .tutors-box .grid-container .grid-item .tutor-empty {
+  color: black;
+  font-size: 17px;
+}

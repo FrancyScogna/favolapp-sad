@@ -1,0 +1,68 @@
+.uploadavatar-dialog {
+  padding: 0;
+  margin: 0;
+}
+
+.uploadavatar-dialog .MuiPaper-root {
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.uploadavatar-dialog .dialog-title {
+  padding-bottom: 7px;
+  display: flex;
+  align-items: center;
+}
+
+.uploadavatar-dialog .dialog-title .title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.uploadavatar-dialog .dialog-content {
+  padding: 0;
+  padding-inline: 24px;
+  margin: 0;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.uploadavatar-dialog .dialog-content .avatar-div {
+  display: flex;
+  width: 200px;
+  height: 200px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  background-color: rgb(175, 175, 175);
+}
+
+.uploadavatar-dialog .dialog-content .avatar-div .loading-div {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.uploadavatar-dialog .dialog-content .avatar-div .loading-image {
+  display: flex;
+  width: 200px;
+  height: 200px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.uploadavatar-dialog .dialog-content .avatar-div img {
+  width: 200px;
+  height: auto;
+}

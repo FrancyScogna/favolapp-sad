@@ -1,0 +1,13 @@
+{
+    "version" : "2018-05-29",
+    "operation" : "UpdateItem",
+    "key" : {
+        "id" : $util.dynamodb.toDynamoDBJson($context.identity.username)
+    },
+    "update" : {
+        "expression" : "set avatarURL = :avatarURL",
+        "expressionValues" : {
+            ":avatarURL" : $util.dynamodb.toDynamoDBJson($context.arguments.path)
+        }
+    }
+}

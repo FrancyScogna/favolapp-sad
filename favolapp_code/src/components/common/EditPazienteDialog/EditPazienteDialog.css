@@ -1,0 +1,26 @@
+.editpaziente-dialog {
+  padding: 0;
+  margin: 0;
+}
+
+.editpaziente-dialog .MuiPaper-root {
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.editpaziente-dialog .dialog-title {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.357);
+  padding-bottom: 7px;
+  display: flex;
+  align-items: center;
+}
+
+.editpaziente-dialog .dialog-title .close-icon-button {
+  margin-left: auto;
+}
+
+.editpaziente-dialog .dialog-title .title {
+  font-size: 20px;
+  font-weight: bold;
+}

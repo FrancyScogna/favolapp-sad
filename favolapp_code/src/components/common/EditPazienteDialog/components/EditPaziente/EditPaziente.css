@@ -1,0 +1,172 @@
+.createpaziente-dialog .grid-container {
+  width: 100%;
+  display: flex;
+}
+
+.createpaziente-dialog .grid-container .grid-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.createpaziente-dialog .grid-container .grid-item .icon-error {
+  color: #d32f2f;
+  margin-left: 5px;
+}
+
+.createpaziente-dialog .grid-container .grid-item .alert {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.createpaziente-dialog .grid-container .grid-item .section {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.createpaziente-dialog .grid-container .grid-item .info-paziente {
+  display: flex;
+  width: 100%;
+}
+
+.createpaziente-dialog .grid-container .grid-item .section .section-text {
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.createpaziente-dialog .grid-container .grid-item .section .section-divider {
+  margin-inline: 5px;
+  flex: 1;
+}
+
+.createpaziente-dialog .grid-container .grid-item .text-field {
+  width: 100%;
+}
+
+.createpaziente-dialog
+  .grid-container
+  .grid-item
+  .date-picker
+  .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+  height: 7px;
+}
+
+.createpaziente-dialog
+  .grid-container
+  .grid-item
+  .date-picker
+  .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  top: -6px;
+}
+
+.createpaziente-dialog .grid-container .grid-item .select-role {
+  width: 150px;
+}
+
+.createpaziente-dialog .grid-container .grid-item .select-city {
+  width: 130px;
+}
+
+.createpaziente-dialog .grid-container .grid-item .select-comune {
+  width: 300px;
+}
+
+.createpaziente-dialog .grid-container .grid-item .select-gender {
+  width: 130px;
+}
+
+.createpaziente-dialog-loading-comuni {
+  display: flex;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.createpaziente-dialog
+  .grid-container
+  .grid-item
+  .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  top: -6px;
+}
+
+.createpaziente-dialog .session-div {
+  display: flex;
+  width: fit-content;
+  background-color: rgba(230, 228, 228, 0.648);
+  border-radius: 10px;
+  position: relative;
+  padding: 10px;
+  margin-top: 5px;
+}
+
+.createpaziente-dialog .session-div .select-session-day {
+  width: 200px;
+}
+
+.createpaziente-dialog .session-div .select-time {
+  width: 120px;
+  margin-left: 10px;
+}
+
+.createpaziente-dialog
+  .session-div
+  .select-time
+  .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+  height: 8px;
+}
+
+.createpaziente-dialog .session-div .session-icon-button {
+  margin-left: 10px;
+  width: fit-content;
+}
+
+.createpaziente-dialog .tutor-div {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(230, 228, 228, 0.648);
+  border-radius: 10px;
+  padding-right: 20px;
+  height: 40px;
+  position: relative;
+  margin-top: 5px;
+}
+
+.createpaziente-dialog .tutor-div .item-fold {
+  font-size: 18px;
+  text-overflow: ellipsis;
+  margin-right: 10px;
+}
+
+.createpaziente-dialog .tutor-div .icon-button {
+  position: absolute;
+  right: 0;
+}
+
+@media screen and (max-width: 565px) {
+  .createpaziente-dialog .session-div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .createpaziente-dialog .session-div .select-time {
+    margin-left: 0px;
+    margin-top: 10px;
+  }
+  .createpaziente-dialog .session-div .session-icon-button {
+    margin-left: 0px;
+    position: absolute;
+    top: calc(50% - 30px);
+    right: 0;
+    margin: 10px;
+    width: fit-content;
+  }
+}

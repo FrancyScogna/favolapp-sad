@@ -1,0 +1,100 @@
+.createaccount-dialog-content .grid-container {
+  width: 100%;
+  display: flex;
+}
+
+.createaccount-dialog-content .grid-container .grid-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.createaccount-dialog-content .grid-container .grid-item .icon-error {
+  color: #d32f2f;
+  margin-left: 5px;
+}
+
+.createaccount-dialog-content .grid-container .grid-item .alert {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.createaccount-dialog-content .grid-container .grid-item .section {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.createaccount-dialog-content
+  .grid-container
+  .grid-item
+  .section
+  .section-text {
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.createaccount-dialog-content
+  .grid-container
+  .grid-item
+  .section
+  .section-divider {
+  margin-inline: 5px;
+  flex: 1;
+}
+
+.createaccount-dialog-content .grid-container .grid-item .text-field {
+  width: 100%;
+}
+
+.createaccount-dialog-content
+  .grid-container
+  .grid-item
+  .date-picker
+  .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+  height: 7px;
+}
+
+.createaccount-dialog-content
+  .grid-container
+  .grid-item
+  .date-picker
+  .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  top: -6px;
+}
+
+.createaccount-dialog-content .grid-container .grid-item .select-role {
+  width: 150px;
+}
+
+.createaccount-dialog-content .grid-container .grid-item .select-city {
+  width: 130px;
+}
+
+.createaccount-dialog-content .grid-container .grid-item .select-comune {
+  width: 300px;
+}
+
+.createaccount-dialog-content .grid-container .grid-item .select-gender {
+  width: 130px;
+}
+
+.createaccount-dialog-content-loading-comuni {
+  display: flex;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.createaccount-dialog-content
+  .grid-container
+  .grid-item
+  .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  top: -6px;
+}

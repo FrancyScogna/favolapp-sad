@@ -1,0 +1,16 @@
+{
+  "version": "2017-02-28",
+  "operation": "Scan",
+  "limit": $util.toJson($context.arguments.limit),
+  "nextToken": $util.toJson($context.arguments.nextToken),
+  "filter": {
+    "expression": "begins_with(#name, :query) OR begins_with(#surname, :query) OR begins_with(codfis, :query)",
+    "expressionNames": {
+      "#name": "name",
+      "#surname": "surname"
+    },
+    "expressionValues": {
+      ":query": $util.dynamodb.toDynamoDBJson($context.arguments.query)
+    }
+  }
+}

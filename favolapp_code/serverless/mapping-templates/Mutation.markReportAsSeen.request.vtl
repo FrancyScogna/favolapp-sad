@@ -1,0 +1,24 @@
+#set($userId = $ctx.identity.sub)
+{
+  "version": "2018-05-29",
+  "operation": "UpdateItem",
+  "key": {
+    "pazienteId": {
+      "S": "$ctx.arguments.pazienteId"
+    },
+    "reportId": {
+      "S": "$ctx.arguments.reportId"
+    }
+  },
+  "update": {
+    "expression": "ADD seenBy :userId",
+    "expressionValues": {
+      ":userId": {
+        "SS": ["$userId"]
+      }
+    }
+  },
+  "condition": {
+    "expression": "attribute_exists(reportId)"
+  }
+}

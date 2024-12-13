@@ -1,0 +1,910 @@
+org: francyscogna
+service: sadproject
+
+plugins:
+  - serverless-appsync-plugin
+  - serverless-iam-roles-per-function
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-west-1
+  stage: dev
+  environment:
+    STAGE: ${self:custom.stage}
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1'
+    TERMS_VERSION: 2
+    REGION: ${self:provider.region}
+
+package:
+  exclude:
+    - package-lock.json
+    - package.json
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+
+appSync: ${file(serverless.appsync-api.yml)}
+
+functions:
+  defineAuthChallenge:
+    handler: functions/auth/define-auth-challenge.handler
+    environment:
+      USERS_TABLE: !Ref UsersTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action: dynamodb:GetItem
+        Resource: !GetAtt UsersTable.Arn
+
+  signUpNewUser:
+    handler: functions/auth/signup-new-user.handler
+    environment:
+      USERS_TABLE: !Ref UsersTable
+      USER_POOL_ID: !Ref CognitoUserPool
+    iamRoleStatements:
+      - Effect: Allow
+        Action: dynamodb:PutItem
+        Resource: !GetAtt UsersTable.Arn
+      - Effect: Allow
+        Action:
+          - cognito-idp:AdminCreateUser
+          - cognito-idp:AdminAddUserToGroup
+        Resource: !GetAtt CognitoUserPool.Arn
+
+  createAuthChallenge:
+    handler: functions/auth/create-auth-challenge.handler
+
+  verifyAuthChallengeResponse:
+    handler: functions/auth/verify-auth-challenge-response.handler
+    environment:
+      USERS_TABLE: !Ref UsersTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action: dynamodb:UpdateItem
+        Resource: !GetAtt UsersTable.Arn
+  
+  preAuthentication:
+    handler: functions/auth/pre-authentication.handler
+    environment:
+      LOG_GROUP_NAME: !Ref ActivityLogGroup
+      AUTH_LOG_STREAM: !Ref AuthLogStream
+    iamRoleStatements:
+      - Effect: Allow
+        Action: logs:PutLogEvents
+        Resource: !GetAtt ActivityLogGroup.Arn
+  
+  postAuthentication:
+    handler: functions/auth/post-authentication.handler
+    environment:
+      LOG_GROUP_NAME: !Ref ActivityLogGroup
+      AUTH_LOG_STREAM: !Ref AuthLogStream
+    iamRoleStatements:
+      - Effect: Allow
+        Action: logs:PutLogEvents
+        Resource: !GetAtt ActivityLogGroup.Arn
+  
+  getUser:
+    handler: functions/app/get-user.handler
+    environment:
+      USERS_TABLE: !Ref UsersTable
+      PAZIENTI_TUTOR_TABLE: !Ref PazientiTutorTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action: dynamodb:GetItem
+        Resource: !GetAtt UsersTable.Arn
+      - Effect: Allow
+        Action: dynamodb:Query
+        Resource: 
+          - !GetAtt PazientiTutorTable.Arn
+          - !Sub 
+            - ${PazientiTutorTableArn}/*
+            - PazientiTutorTableArn: !GetAtt PazientiTutorTable.Arn
+  
+  deleteUser:
+    handler: functions/auth/delete-user.handler
+    environment:
+      USERS_TABLE: !Ref UsersTable
+      USER_POOL_ID: !Ref CognitoUserPool
+    iamRoleStatements:
+      - Effect: Allow
+        Action: dynamodb:UpdateItem
+        Resource: !GetAtt UsersTable.Arn
+      - Effect: Allow
+        Action:
+          - cognito-idp:AdminDeleteUser
+        Resource: !GetAtt CognitoUserPool.Arn
+        
+  createNewPaziente:
+    handler: functions/app/create-new-paziente.handler
+    environment:
+      USERS_TABLE: !Ref UsersTable
+      PAZIENTI_TABLE: !Ref PazientiTable
+      PAZIENTI_TUTOR_TABLE: !Ref PazientiTutorTable
+      SESSIONS_TABLE: !Ref SessionsTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action: dynamodb:PutItem
+        Resource: 
+          - !GetAtt PazientiTable.Arn
+          - !GetAtt PazientiTutorTable.Arn
+          - !GetAtt SessionsTable.Arn
+      - Effect: Allow
+        Action: dynamodb:UpdateItem
+        Resource: !GetAtt UsersTable.Arn
+  
+  searchMyPazienti:
+    handler: functions/app/search-my-pazienti.handler
+    environment:
+      PAZIENTI_TABLE: !Ref PazientiTable
+      PAZIENTI_TUTOR_TABLE: !Ref PazientiTutorTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action: dynamodb:Query
+        Resource: 
+          - !GetAtt PazientiTutorTable.Arn
+          - !Sub 
+            - ${PazientiTutorTableArn}/*
+            - PazientiTutorTableArn: !GetAtt PazientiTutorTable.Arn
+
+      - Effect: Allow
+        Action: dynamodb:GetItem
+        Resource: !GetAtt PazientiTable.Arn
+  
+  getCommonPazienti:
+    handler: functions/app/get-common-pazienti.handler
+    environment:
+      USERS_TABLE: !Ref UsersTable
+      PAZIENTI_TUTOR_TABLE: !Ref PazientiTutorTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action: dynamodb:Query
+        Resource: 
+          - !GetAtt PazientiTutorTable.Arn
+          - !Sub 
+            - ${PazientiTutorTableArn}/*
+            - PazientiTutorTableArn: !GetAtt PazientiTutorTable.Arn
+      - Effect: Allow
+        Action: dynamodb:GetItem
+        Resource: !GetAtt UsersTable.Arn
+  
+  searchCommonPazienti:
+    handler: functions/app/search-common-pazienti.handler
+    environment:
+      USERS_TABLE: !Ref UsersTable
+      PAZIENTI_TUTOR_TABLE: !Ref PazientiTutorTable
+      PAZIENTI_TABLE: !Ref PazientiTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action: dynamodb:Query
+        Resource: 
+          - !GetAtt PazientiTutorTable.Arn
+          - !Sub 
+            - ${PazientiTutorTableArn}/*
+            - PazientiTutorTableArn: !GetAtt PazientiTutorTable.Arn
+      - Effect: Allow
+        Action: dynamodb:GetItem
+        Resource: 
+          - !GetAtt UsersTable.Arn
+          - !GetAtt PazientiTable.Arn
+        
+  searchPazientiByUserId:
+    handler: functions/app/search-pazienti-by-userid.handler
+    environment:
+      PAZIENTI_TUTOR_TABLE: !Ref PazientiTutorTable
+      PAZIENTI_TABLE: !Ref PazientiTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action: dynamodb:Query
+        Resource: 
+          - !GetAtt PazientiTutorTable.Arn
+          - !Sub 
+            - ${PazientiTutorTableArn}/*
+            - PazientiTutorTableArn: !GetAtt PazientiTutorTable.Arn
+      - Effect: Allow
+        Action: dynamodb:GetItem
+        Resource: 
+          - !GetAtt PazientiTable.Arn
+
+  pazienteTutorsHydrate:
+    handler: functions/app/paziente-tutors-hydrate.handler
+    environment:
+      PAZIENTI_TUTOR_TABLE: !Ref PazientiTutorTable
+      USERS_TABLE: !Ref UsersTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action: dynamodb:Query
+        Resource: 
+          - !GetAtt PazientiTutorTable.Arn
+          - !Sub 
+            - ${PazientiTutorTableArn}/*
+            - PazientiTutorTableArn: !GetAtt PazientiTutorTable.Arn
+      - Effect: Allow
+        Action: dynamodb:BatchGetItem
+        Resource: 
+          - !GetAtt UsersTable.Arn
+  
+  getPaziente:
+    handler: functions/app/get-paziente.handler
+    environment:
+      PAZIENTI_TABLE: !Ref PazientiTable
+      PAZIENTI_TUTOR_TABLE: !Ref PazientiTutorTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action: dynamodb:GetItem
+        Resource: 
+          - !GetAtt PazientiTable.Arn
+          - !GetAtt PazientiTutorTable.Arn
+  
+  editPaziente:
+    handler: functions/app/edit-paziente.handler
+    environment:
+      PAZIENTI_TUTOR_TABLE: !Ref PazientiTutorTable
+      PAZIENTI_TABLE: !Ref PazientiTable
+      USERS_TABLE: !Ref UsersTable
+      SESSIONS_TABLE: !Ref SessionsTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action: dynamodb:UpdateItem
+        Resource: 
+          - !GetAtt PazientiTable.Arn
+          - !GetAtt UsersTable.Arn
+          - !GetAtt SessionsTable.Arn
+      - Effect: Allow
+        Action: dynamodb:BatchWriteItem
+        Resource:
+          - !GetAtt SessionsTable.Arn
+          - !GetAtt PazientiTutorTable.Arn
+
+  getColleguesReports:
+    handler: functions/app/get-collegues-reports.handler
+    environment:
+      PAZIENTI_TUTOR_TABLE: !Ref PazientiTutorTable
+      REPORTS_TABLE: !Ref ReportsTable
+      USERS_TABLE: !Ref UsersTable
+      PAZIENTI_TABLE: !Ref PazientiTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+          - dynamodb:GetItem
+          - dynamodb:Scan
+          - dynamodb:BatchGetItem
+        Resource:
+          - !GetAtt PazientiTutorTable.Arn
+          - !Sub "${PazientiTutorTable.Arn}/index/*"
+          - !GetAtt ReportsTable.Arn
+          - !Sub "${ReportsTable.Arn}/index/*"
+          - !GetAtt PazientiTable.Arn
+          - !Sub "${PazientiTable.Arn}/index/*"
+          - !GetAtt UsersTable.Arn
+          - !Sub "${UsersTable.Arn}/index/*"
+
+  getAllReports:
+    handler: functions/app/get-all-reports.handler
+    environment:
+      REPORTS_TABLE: !Ref ReportsTable
+      PAZIENTI_TABLE: !Ref PazientiTable
+      USERS_TABLE: !Ref UsersTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+          - dynamodb:Scan
+          - dynamodb:GetItem
+        Resource: 
+          - !GetAtt PazientiTutorTable.Arn
+          - !Sub "${PazientiTutorTable.Arn}/index/*"
+          - !GetAtt ReportsTable.Arn
+          - !Sub "${ReportsTable.Arn}/index/*"
+          - !GetAtt PazientiTable.Arn
+          - !Sub "${PazientiTable.Arn}/index/*"
+          - !GetAtt UsersTable.Arn
+          - !Sub "${UsersTable.Arn}/index/*"
+
+  getReportsByOtherUser:
+    handler: functions/app/get-user-report.handler
+    environment:
+      REPORTS_TABLE: !Ref ReportsTable
+      USERS_TABLE: !Ref UsersTable
+      PAZIENTI_TABLE: !Ref PazientiTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+          - dynamodb:GetItem
+          - dynamodb:Scan
+        Resource:
+          - !GetAtt ReportsTable.Arn
+          - !Sub "${ReportsTable.Arn}/index/*"
+          - !GetAtt UsersTable.Arn
+          - !Sub "${UsersTable.Arn}/index/*"
+          - !GetAtt PazientiTable.Arn
+          - !Sub "${PazientiTable.Arn}/index/*"
+
+  getMyReport:
+    handler: functions/app/get-my-report.handler
+    environment:
+      PAZIENTI_TUTOR_TABLE: !Ref PazientiTutorTable
+      REPORTS_TABLE: !Ref ReportsTable
+      USERS_TABLE: !Ref UsersTable
+      PAZIENTI_TABLE: !Ref PazientiTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+          - dynamodb:GetItem
+          - dynamodb:Scan
+        Resource:
+          - !GetAtt PazientiTutorTable.Arn
+          - !Sub "${PazientiTutorTable.Arn}/index/*"
+          - !GetAtt ReportsTable.Arn
+          - !Sub "${ReportsTable.Arn}/index/*"
+          - !GetAtt PazientiTable.Arn
+          - !Sub "${PazientiTable.Arn}/index/*"
+          - !GetAtt UsersTable.Arn
+          - !Sub "${UsersTable.Arn}/index/*"
+
+  editReport:
+    handler: functions/app/edit-report.handler
+    environment:
+      REPORTS_TABLE: !Ref ReportsTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
+          - dynamodb:Query
+        Resource: 
+          - !GetAtt ReportsTable.Arn
+          - !Sub "${ReportsTable.Arn}/index/ReportIndex"
+
+  createNewReport: 
+    handler: functions/app/create-new-report.handler
+    environment:
+      REPORTS_TABLE: !Ref ReportsTable
+      USERS_TABLE: !Ref UsersTable
+      PAZIENTI_TUTOR_TABLE: !Ref PazientiTutorTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+          - dynamodb:UpdateItem
+          - dynamodb:Query
+        Resource:
+          - !GetAtt ReportsTable.Arn
+          - !GetAtt UsersTable.Arn
+          - !GetAtt PazientiTutorTable.Arn
+          - !Sub 
+            - ${PazientiTutorTableArn}/*
+            - PazientiTutorTableArn: !GetAtt PazientiTutorTable.Arn
+
+  getMyCollegues:
+    handler: functions/app/get-my-collegues.handler
+    environment:
+      PAZIENTI_TUTOR_TABLE: !Ref PazientiTutorTable
+      USERS_TABLE: !Ref UsersTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action: dynamodb:Query
+        Resource: 
+          - !GetAtt PazientiTutorTable.Arn
+          - !Sub 
+            - ${PazientiTutorTableArn}/*
+            - PazientiTutorTableArn: !GetAtt PazientiTutorTable.Arn
+      - Effect: Allow
+        Action: dynamodb:GetItem
+        Resource: 
+          - !GetAtt UsersTable.Arn
+  
+  searchMyCollegues:
+    handler: functions/app/search-my-collegues.handler
+    environment:
+      PAZIENTI_TUTOR_TABLE: !Ref PazientiTutorTable
+      USERS_TABLE: !Ref UsersTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action: dynamodb:Query
+        Resource: 
+          - !GetAtt PazientiTutorTable.Arn
+          - !Sub 
+            - ${PazientiTutorTableArn}/*
+            - PazientiTutorTableArn: !GetAtt PazientiTutorTable.Arn
+      - Effect: Allow
+        Action: dynamodb:GetItem
+        Resource: 
+          - !GetAtt UsersTable.Arn
+  
+  writeLog:
+    handler: functions/app/write-log.handler
+    environment:
+      LOG_GROUP_NAME: !Ref ActivityLogGroup
+      USER_LOG_STREAM: !Ref UserLogStream
+      PAZIENTI_LOG_STREAM: !Ref PazientiLogStream
+      REPORTS_LOG_STREAM: !Ref ReportLogStream
+    iamRoleStatements:
+      - Effect: Allow
+        Action: logs:PutLogEvents
+        Resource: !GetAtt ActivityLogGroup.Arn
+  
+  getLogs:
+    handler: functions/app/get-logs.handler
+    environment:
+      LOG_GROUP_NAME: !Ref ActivityLogGroup
+      USER_LOG_STREAM: !Ref UserLogStream
+      PAZIENTI_LOG_STREAM: !Ref PazientiLogStream
+      AUTH_LOG_STREAM: !Ref AuthLogStream
+      USERS_TABLE: !Ref UsersTable
+      REPORTS_LOG_STREAM: !Ref ReportLogStream
+    iamRoleStatements:
+      - Effect: Allow
+        Action: 
+          - logs:GetLogEvents
+          - logs:Unmask
+        Resource: !GetAtt ActivityLogGroup.Arn
+      - Effect: Allow
+        Action: dynamodb:GetItem
+        Resource: !GetAtt UsersTable.Arn
+
+resources:
+
+  Resources:
+
+    ActivityLogGroup:
+      Type: AWS::Logs::LogGroup
+      Properties:
+        LogGroupName: favolApp/activity
+
+    UserLogStream:
+      Type: AWS::Logs::LogStream
+      Properties:
+        LogGroupName: !Ref ActivityLogGroup
+        LogStreamName: UsersActivity
+    
+    AuthLogStream:
+      Type: AWS::Logs::LogStream
+      Properties:
+        LogGroupName: !Ref ActivityLogGroup
+        LogStreamName: AuthActivity
+    
+    PazientiLogStream:
+      Type: AWS::Logs::LogStream
+      Properties:
+        LogGroupName: !Ref ActivityLogGroup
+        LogStreamName: PazientiActivity
+    
+    ReportLogStream:
+      Type: AWS::Logs::LogStream
+      Properties:
+        LogGroupName: !Ref ActivityLogGroup
+        LogStreamName: ReportsActivity
+
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        BillingMode: PAY_PER_REQUEST
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        Tags:
+          - Key: Environment
+            Value: ${self:custom.stage}
+          - Key: Name
+            Value: users-table
+
+    PazientiTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        BillingMode: PAY_PER_REQUEST
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        Tags:
+          - Key: Environment
+            Value: ${self:custom.stage}
+          - Key: Name
+            Value: pazienti-table
+
+    PazientiTutorTable:
+      Type: AWS::DynamoDB::Table
+      Properties: 
+        BillingMode: PAY_PER_REQUEST
+        KeySchema:
+          - AttributeName: pazienteId
+            KeyType: HASH
+          - AttributeName: userId
+            KeyType: RANGE
+        AttributeDefinitions: 
+          - AttributeName: pazienteId
+            AttributeType: S
+          - AttributeName: userId
+            AttributeType: S
+        GlobalSecondaryIndexes:
+          - IndexName: UserIndex
+            KeySchema:
+              - AttributeName: userId
+                KeyType: HASH
+              - AttributeName: pazienteId
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+        Tags: 
+          - Key: Environment
+            Value: ${self:custom.stage}
+          - Key: Name
+            Value: pazienti-user-table
+    
+    SessionsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        BillingMode: PAY_PER_REQUEST
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: pazienteId
+            AttributeType: S
+        GlobalSecondaryIndexes:
+          - IndexName: PazienteIndex
+            KeySchema:
+              - AttributeName: pazienteId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+        Tags: 
+          - Key: Environment
+            Value: ${self:custom.stage}
+          - Key: Name
+            Value: sessions-table
+
+    ReportsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        BillingMode: PAY_PER_REQUEST
+        KeySchema:
+          - AttributeName: pazienteId
+            KeyType: HASH
+          - AttributeName: reportId
+            KeyType: RANGE
+        AttributeDefinitions:
+          - AttributeName: reportId
+            AttributeType: S
+          - AttributeName: pazienteId
+            AttributeType: S
+          - AttributeName: tutorId
+            AttributeType: S
+        GlobalSecondaryIndexes:
+          - IndexName: TutorIndex
+            KeySchema:
+              - AttributeName: tutorId
+                KeyType: HASH
+              - AttributeName: pazienteId
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+          - IndexName: PazienteIndex
+            KeySchema:
+              - AttributeName: pazienteId
+                KeyType: HASH
+              - AttributeName: tutorId
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+          - IndexName: ReportIndex
+            KeySchema:
+              - AttributeName: reportId
+                KeyType: HASH
+              - AttributeName: pazienteId
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+        Tags:
+          - Key: Environment
+            Value: ${self:custom.stage}
+          - Key: Name
+            Value: reports-table
+
+    CognitoUserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        AccountRecoverySetting:
+          RecoveryMechanisms:
+            - Name: verified_email
+              Priority: 1
+        AdminCreateUserConfig:
+          AllowAdminCreateUserOnly: true
+          InviteMessageTemplate:
+            EmailMessage: |
+              <p><img style="margin-right: auto; display: block;" src="https://i.ibb.co/7jnhKX0/Logo-Motto.png" alt="" width="320" height="160" /></p>
+              <div>
+              <div>&nbsp;</div>
+              <div>Ciao {username},</div>
+              <div>&nbsp;</div>
+              <div>Ecco le informazioni d'accesso per accedere al servizio.</div>
+              <div>Email: <strong>{username}</strong></div>
+              <div>Password temporanea: <strong>{####}</strong></div>
+              <div>&nbsp;</div>
+              <div>Al primo accesso ti verr&agrave; chiesto di reimpostare la password.</div>
+              <div>&nbsp;</div>
+              <div>Grazie,</div>
+              <div><strong>Il team di favolApp</strong></div>
+              </div>
+            EmailSubject: Benvenuto su favolApp! Ecco la tua password temporanea.
+        AutoVerifiedAttributes:
+          - email
+        DeletionProtection: ACTIVE
+        EmailConfiguration:
+          EmailSendingAccount: COGNITO_DEFAULT
+        MfaConfiguration: 'ON'
+        EnabledMfas:
+          - SOFTWARE_TOKEN_MFA
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 8
+            RequireLowercase: true
+            RequireNumbers: true
+            RequireUppercase: true
+            RequireSymbols: true
+            TemporaryPasswordValidityDays: 7
+        UserAttributeUpdateSettings:
+          AttributesRequireVerificationBeforeUpdate:
+            - email
+        UsernameAttributes:
+          - email
+        UsernameConfiguration:
+          CaseSensitive: false
+        VerificationMessageTemplate:
+          DefaultEmailOption: CONFIRM_WITH_CODE
+          EmailMessage: |
+            <p><img style="display: block; margin-right: auto;" src="https://i.ibb.co/7jnhKX0/Logo-Motto.png" alt="" width="320" height="160" /></p>
+            <div>
+            <div>
+            <div>&nbsp;</div>
+            <div>Il tuo codice di verifica &egrave;: <strong>{####}</strong></div>
+            <div>&nbsp;</div>
+            <div>Inserisci il codice su favolApp per confermare l'operazione.</div>
+            <div>&nbsp;</div>
+            <div>Grazie,</div>
+            <div><strong>Il team di favolApp</strong></div>
+            </div>
+            </div>
+          EmailSubject: favolApp - Codice di verifica
+        Schema:
+          - AttributeDataType: String
+            DeveloperOnlyAttribute: false
+            Mutable: false
+            Name: sub
+            Required: true
+          - AttributeDataType: String
+            DeveloperOnlyAttribute: false
+            Mutable: true
+            Name: email
+            Required: true
+          - AttributeDataType: Boolean
+            DeveloperOnlyAttribute: false
+            Mutable: true
+            Name: email_verified
+            Required: true
+        LambdaConfig:
+          DefineAuthChallenge: !GetAtt DefineAuthChallengeLambdaFunction.Arn
+          CreateAuthChallenge: !GetAtt CreateAuthChallengeLambdaFunction.Arn
+          VerifyAuthChallengeResponse: !GetAtt VerifyAuthChallengeResponseLambdaFunction.Arn
+          PreAuthentication: !GetAtt PreAuthenticationLambdaFunction.Arn
+          PostAuthentication: !GetAtt PostAuthenticationLambdaFunction.Arn
+
+    UserPoolInvokeDefineAuthChallengeLambdaFunctionLambdaPermission:
+      Type: AWS::Lambda::Permission
+      Properties:
+        Action: lambda:invokeFunction
+        FunctionName: !Ref DefineAuthChallengeLambdaFunction
+        Principal: cognito-idp.amazonaws.com
+        SourceArn: !GetAtt CognitoUserPool.Arn
+
+    UserPoolInvokeCreateAuthChallengeLambdaFunctionLambdaPermission:
+      Type: AWS::Lambda::Permission
+      Properties:
+        Action: lambda:invokeFunction
+        FunctionName: !Ref CreateAuthChallengeLambdaFunction
+        Principal: cognito-idp.amazonaws.com
+        SourceArn: !GetAtt CognitoUserPool.Arn
+
+    UserPoolInvokeVerifyAuthChallengeResponseLambdaFunctionLambdaPermission:
+      Type: AWS::Lambda::Permission
+      Properties:
+        Action: lambda:invokeFunction
+        FunctionName: !Ref VerifyAuthChallengeResponseLambdaFunction
+        Principal: cognito-idp.amazonaws.com
+        SourceArn: !GetAtt CognitoUserPool.Arn
+    
+    UserPoolInvokePreAuthenticationLambdaFunctionLambdaPermission:
+      Type: AWS::Lambda::Permission
+      Properties:
+        Action: lambda:invokeFunction
+        FunctionName: !Ref PreAuthenticationLambdaFunction
+        Principal: cognito-idp.amazonaws.com
+        SourceArn: !GetAtt CognitoUserPool.Arn
+    
+    UserPoolInvokePostAuthenticationLambdaFunctionLambdaPermission:
+      Type: AWS::Lambda::Permission
+      Properties:
+        Action: lambda:invokeFunction
+        FunctionName: !Ref PostAuthenticationLambdaFunction
+        Principal: cognito-idp.amazonaws.com
+        SourceArn: !GetAtt CognitoUserPool.Arn
+
+    UserPoolGroupAdmin:
+      Type: AWS::Cognito::UserPoolGroup
+      Properties:
+        Description: Gruppo appartenente ai Supervisori
+        GroupName: admin
+        Precedence: 0
+        UserPoolId: !Ref CognitoUserPool
+
+    UserPoolGroupTutor:
+      Type: AWS::Cognito::UserPoolGroup
+      Properties:
+        Description: Gruppo appartenente ai Tutor
+        GroupName: tutor
+        Precedence: 1
+        UserPoolId: !Ref CognitoUserPool
+
+    CognitoUserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        UserPoolId: !Ref CognitoUserPool
+        ClientName: web
+        AllowedOAuthFlowsUserPoolClient: false
+        ExplicitAuthFlows:
+          - ALLOW_CUSTOM_AUTH
+          - ALLOW_REFRESH_TOKEN_AUTH
+          - ALLOW_USER_SRP_AUTH
+        AccessTokenValidity: 60
+        AuthSessionValidity: 15
+        IdTokenValidity: 60
+        RefreshTokenValidity: 30
+        TokenValidityUnits:
+          AccessToken: minutes
+          IdToken: minutes
+          RefreshToken: days
+        PreventUserExistenceErrors: ENABLED
+        ReadAttributes:
+          - sub
+          - email
+          - email_verified
+        WriteAttributes:
+          - email
+
+    AdminGroupRole:
+      Type: "AWS::IAM::Role"
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: "Allow"
+              Principal:
+                Federated: "cognito-identity.amazonaws.com"
+              Action: "sts:AssumeRoleWithWebIdentity"
+              Condition:
+                StringEquals:
+                  "cognito-identity.amazonaws.com:aud": !Ref CognitoIdentityPool
+                ForAnyValue:StringLike:
+                  "cognito-identity.amazonaws.com:amr": "authenticated"
+
+    TutorGroupRole:
+      Type: "AWS::IAM::Role"
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: "Allow"
+              Principal:
+                Federated: "cognito-identity.amazonaws.com"
+              Action: "sts:AssumeRoleWithWebIdentity"
+              Condition:
+                StringEquals:
+                  "cognito-identity.amazonaws.com:aud": !Ref CognitoIdentityPool
+                ForAnyValue:StringLike:
+                  "cognito-identity.amazonaws.com:amr": "authenticated"
+                
+    CognitoIdentityPool:
+      Type: AWS::Cognito::IdentityPool
+      Properties:
+        AllowUnauthenticatedIdentities: false
+        CognitoIdentityProviders:
+          - ClientId: !Ref CognitoUserPoolClient
+            ProviderName: !Sub
+              - cognito-idp.eu-west-1.amazonaws.com/${CognitoUserPoolId}
+              - CognitoUserPoolId: !Ref CognitoUserPool
+
+    #CognitoIdentityPoolRoleAttachment:
+      #Dalla console:
+      #Cognito -> Pool di Identità -> Seleziono la Pool di identità del progetto ->
+      #-> Accesso utente -> Provider di identità -> Seleziono il provider -> 
+      #-> Impostazioni ruolo -> Modifica -> Seleziono "Scegli un ruolo con regole" ->
+        #Prima regola:
+          # Richiesta: cognito:groups
+          # Operatore: Contiene
+          # Valore: admin (il nome del gruppo a cui associare il ruolo)
+          # Ruolo: (seleziona il ruolo per gli admin)
+        #Seconda regola:
+          # Richiesta: cognito:groups
+          # Operatore: Contiene
+          # Valore: tutor (il nome del gruppo a cui associare il ruolo)
+          # Ruolo: (seleziona il ruolo per i tutor)
+    
+    AssetsBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        AccelerateConfiguration:
+          AccelerationStatus: Enabled
+        CorsConfiguration:
+          CorsRules:
+            - AllowedMethods:
+                - GET
+                - PUT
+              AllowedOrigins:
+                - '*'
+              AllowedHeaders:
+                - '*'
+    
+    AssetsBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket: !Ref AssetsBucket
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: "Allow"
+              Principal:
+                AWS: !GetAtt AdminGroupRole.Arn
+              Action:
+                - "s3:PutObject"
+                - "s3:DeleteObject"
+                - "s3:GetObject"
+              Resource: !Sub
+                - ${AssetsBucketArn}/*
+                - AssetsBucketArn: !GetAtt AssetsBucket.Arn
+            - Effect: "Allow"
+              Principal:
+                AWS: !GetAtt TutorGroupRole.Arn
+              Action:
+                - "s3:PutObject"
+                - "s3:DeleteObject"
+              Resource: 
+                - !Sub
+                  - "${AssetsBucketArn}/public/$${CognitoIdentityUrl}/*"
+                  - AssetsBucketArn: !GetAtt AssetsBucket.Arn
+                    CognitoIdentityUrl: "{cognito-identity.amazonaws.com:sub}"
+                - !Sub
+                  - "${AssetsBucketArn}/private/$${CognitoIdentityUrl}/*"
+                  - AssetsBucketArn: !GetAtt AssetsBucket.Arn
+                    CognitoIdentityUrl: "{cognito-identity.amazonaws.com:sub}"
+            - Effect: "Allow"
+              Principal:
+                AWS: !GetAtt TutorGroupRole.Arn
+              Action:
+                - "s3:GetObject"
+              Resource: 
+                - !Sub
+                  - "${AssetsBucketArn}/public/*"
+                  - AssetsBucketArn: !GetAtt AssetsBucket.Arn
+                - !Sub
+                  - "${AssetsBucketArn}/private/$${CognitoIdentityUrl}/*"
+                  - AssetsBucketArn: !GetAtt AssetsBucket.Arn
+                    CognitoIdentityUrl: "{cognito-identity.amazonaws.com:sub}"
+    
+  Outputs:
+    CognitoUserPoolId:
+      Value: !Ref CognitoUserPool

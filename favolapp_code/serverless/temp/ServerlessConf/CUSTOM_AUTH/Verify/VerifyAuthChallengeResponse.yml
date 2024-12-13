@@ -1,0 +1,34 @@
+Code:
+  Location: https://awslambda-eu-west-1-tasks.s3.eu-west-1.amazonaws.com/snapshots/654654599269/VerifyAuthChallengeResponse-8b07344a-17d5-4f55-b63e-699395cc8f1d?versionId=0Y.u9cZNqo5Uq_gWerad_T7WrZ3YNuHZ&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEGIaCWV1LXdlc3QtMSJIMEYCIQDcpa%2BUDmDX1YBL3zE%2B0STrZxWEmaFiywyGBsP1Bq3IZgIhAPoQxdmF6AbdojJqokz%2FwNEfQz%2F8m9pe3NxmnvBmchMwKroFCNv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQBBoMOTU0MzY5MDgyNTExIgyMjJINwwD9Ya1Q%2BPUqjgWhoz7RUrBQJAgZOhwfMeestXh%2FRxhvO0wUPAv8qPifqlW43tMW5l7fLYldU8TTnqNvgUCs45FhMNz5AholcmM4pYFre54Hmaa4MRdbCu1z%2FlpXgER3r9%2BZR1yKfR3vyOR11s%2BxvyBcCYvG1poFURPn41S7OTJlOdiydPGahK4FK5FSgcC3UQrxMsEEzCVkwonXQwM7BhPRLBGqMI8FHEbHcBh%2BvoDMmlL38s7Q9s%2FCb%2FZG8rFRgoENNVu9DuU6BKWaOCx4Zig7B%2BQ6OxvkI4QPdrToukGYp8n6VdSe%2BSIC373bMHX0bab28EwA5OQGv0hXi3Ojl7GVooNcclXsVkc6Ya2HK%2Fcmdel7jw7AP662G8RezxoTcGpGP3a9zjy0ykokcY%2Bn0XMaF1fMQV07F1aX6IVKarmL%2F8jBcaR4zZyqDOEQlvISwSSbDqFe160HOnQ2up4FnhmQGpICLF%2BZ2sw8zwu3tZiv0U2mi9zdWjglzgwxLfloZMnptHIw08f1NXpGm9IL9NZn0pOnrdBvKTCdRNilLS4KPgVEMdpajiekaCzqMIjqVMGVh%2FTMIbZ7f%2FgnHxokSfaTYGAM0l3j%2F540mX%2FmamDiDvRKqhObiXF8U2n65AVUcHi4f4zIxdGGcKYOsBuZw8XL9hah7Mc5bdqbBiw1hiBAzYS0QyjYvn85PNEA3AU0azXstNrXkGkcmeUrkkzgwBaO7sXnE7jmTgjNx0OaVCrNwxYB9HPdL%2FWPYxTMBvDX783wMyDId3vDzBDGlsNfDJcexZFWigZtiF1lSGcZ0bDxlDnGgs68TUc3VcW124sr0IHW0zvkAnx6427f1RDPcQM6C5Y7DZ6kCGfWDpN5J%2FBhsWQLBuY8sS8wk4fTsgY6sAH5PUNnGskiBqvd9tV5moYzf6HTZfpZb0Z54P6%2FGuS1cs1fNjqKraU7aCidV1mFSjgPVw14bdMFEFi2SnANef7Z7HoWoLC8Q%2BkDQwNeZZAhQOyKDTmWKMqK3l%2FCaIst5ofafk%2Fi24rzw7SwYxf%2F3JSJ%2B60X7qSyYaOr5M8XdQA1amekQ7k1cXqP%2B%2Bh3GRxtr3RglDXegAXgT4h4yAoJGzynRrMAumnpk%2FT%2FVyEUDGZReA%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240527T182932Z&X-Amz-SignedHeaders=host&X-Amz-Expires=600&X-Amz-Credential=ASIA54NGUQSH3NLWUIEU%2F20240527%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Signature=5740f5991435fb80d82be846cc7eacd14c69b2d0b3245490d5d53ed4e4b8c934
+  RepositoryType: S3
+Configuration:
+  Architectures:
+  - x86_64
+  CodeSha256: 4vTvOcAay8Tz3I7IgaceYqDCdC33U1QHsFsHBA9nhqs=
+  CodeSize: 605
+  Description: ''
+  EphemeralStorage:
+    Size: 512
+  FunctionArn: arn:aws:lambda:eu-west-1:654654599269:function:VerifyAuthChallengeResponse
+  FunctionName: VerifyAuthChallengeResponse
+  Handler: index.handler
+  LastModified: 2024-05-27T15:59:28.000+0000
+  LastUpdateStatus: Successful
+  LoggingConfig:
+    LogFormat: Text
+    LogGroup: /aws/lambda/VerifyAuthChallengeResponse
+  MemorySize: 128
+  PackageType: Zip
+  RevisionId: 36df533a-e329-4d9f-9155-59cf13c58a0d
+  Role: arn:aws:iam::654654599269:role/service-role/VerifyAuthChallengeResponseRole
+  Runtime: nodejs16.x
+  RuntimeVersionConfig:
+    RuntimeVersionArn: arn:aws:lambda:eu-west-1::runtime:30606511772fdc0f370d2d81900da3f8c7cd524f718237c6bebd61e4e1e853fa
+  SnapStart:
+    ApplyOn: None
+    OptimizationStatus: Off
+  State: Active
+  Timeout: 3
+  TracingConfig:
+    Mode: PassThrough
+  Version: $LATEST

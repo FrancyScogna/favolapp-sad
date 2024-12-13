@@ -1,0 +1,26 @@
+.allpazienti-container .search-input {
+  display: flex;
+  width: 100%;
+}
+
+.allpazienti-container .search-input .search-input-field {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  padding-inline: 20px;
+  margin: 15px;
+  border: 2px solid gray;
+  border-radius: 20px;
+}
+
+.allpazienti-container .pazientelist-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.allpazienti-container .pazientelist-container .reset-search-button {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: 15px;
+}

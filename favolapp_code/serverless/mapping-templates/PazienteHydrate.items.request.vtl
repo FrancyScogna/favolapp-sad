@@ -1,0 +1,21 @@
+#if ($context.source.items.size() == 0)
+    #return([])
+#end
+
+#set ($pazienti = [])
+#foreach ($item in $context.source.items)
+    #set ($paziente = {})
+    #set ($paziente.id = $item.pazienteId)
+    $util.qr($pazienti.add($util.dynamodb.toMapValues($paziente)))
+#end
+
+{
+    "version" : "2018-05-29",
+    "operation" : "BatchGetItem",
+    "tables" : {
+        "${PazientiTable}": {
+           "keys": $util.toJson($pazienti),
+            "consistentRead": false
+        }
+    }
+}

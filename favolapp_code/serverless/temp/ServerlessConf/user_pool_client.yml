@@ -1,0 +1,60 @@
+UserPoolClient:
+  AccessTokenValidity: 60
+  AllowedOAuthFlowsUserPoolClient: false
+  AuthSessionValidity: 3
+  ClientId: 42kptj4rvldhpabpuvb720rn2n
+  ClientName: Prova1
+  CreationDate: '2024-05-26T12:40:43.887000+02:00'
+  EnablePropagateAdditionalUserContextData: false
+  EnableTokenRevocation: true
+  ExplicitAuthFlows:
+  - ALLOW_CUSTOM_AUTH
+  - ALLOW_REFRESH_TOKEN_AUTH
+  - ALLOW_USER_SRP_AUTH
+  IdTokenValidity: 60
+  LastModifiedDate: '2024-05-26T12:56:22.603000+02:00'
+  PreventUserExistenceErrors: ENABLED
+  ReadAttributes:
+  - address
+  - birthdate
+  - email
+  - email_verified
+  - family_name
+  - gender
+  - given_name
+  - locale
+  - middle_name
+  - name
+  - nickname
+  - phone_number
+  - phone_number_verified
+  - picture
+  - preferred_username
+  - profile
+  - updated_at
+  - website
+  - zoneinfo
+  RefreshTokenValidity: 30
+  TokenValidityUnits:
+    AccessToken: minutes
+    IdToken: minutes
+    RefreshToken: days
+  UserPoolId: eu-west-1_qb7K6Pmn4
+  WriteAttributes:
+  - address
+  - birthdate
+  - email
+  - family_name
+  - gender
+  - given_name
+  - locale
+  - middle_name
+  - name
+  - nickname
+  - phone_number
+  - picture
+  - preferred_username
+  - profile
+  - updated_at
+  - website
+  - zoneinfo

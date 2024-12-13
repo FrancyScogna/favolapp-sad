@@ -1,0 +1,35 @@
+.closeaddtask-dialog {
+  padding: 0;
+  margin: 0;
+}
+
+.closeaddtask-dialog .MuiPaper-root {
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.closeaddtask-dialog .dialog-title {
+  padding-bottom: 7px;
+  display: flex;
+  align-items: center;
+}
+
+.closeaddtask-dialog .dialog-title .title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.closeaddtask-dialog .dialog-content {
+  padding: 0;
+  padding-inline: 24px;
+  margin: 0;
+}
+
+.closeaddtask-dialog .dialog-content .description {
+  margin-top: 20px;
+}
+
+.closeaddtask-dialog .dialog-content .description-bold {
+  font-weight: bold;
+}

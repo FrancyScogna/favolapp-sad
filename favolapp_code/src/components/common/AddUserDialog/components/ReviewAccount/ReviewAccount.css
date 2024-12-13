@@ -1,0 +1,72 @@
+.reviewaccount-dialog-content .dialog-title .close-icon-button {
+  margin-left: auto;
+}
+
+.reviewaccount-dialog-content .dialog-title .title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.reviewaccount-dialog-content .grid-container {
+  width: 100%;
+  display: flex;
+}
+
+.reviewaccount-dialog-content .grid-container .grid-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.reviewaccount-dialog-content .grid-container .grid-item .alert {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.reviewaccount-dialog-content .grid-container .grid-item .alert {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.reviewaccount-dialog-content .grid-container .grid-item .section {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.reviewaccount-dialog-content
+  .grid-container
+  .grid-item
+  .section
+  .section-text {
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.reviewaccount-dialog-content
+  .grid-container
+  .grid-item
+  .section
+  .section-divider {
+  margin-inline: 5px;
+  flex: 1;
+}
+
+.reviewaccount-dialog-content .grid-container .grid-item .attribute {
+  margin-right: 5px;
+  font-size: 18px;
+}
+
+.reviewaccount-dialog-content .grid-container .grid-item .value {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.reviewaccount-dialog-content .close-button {
+  margin-right: auto;
+}

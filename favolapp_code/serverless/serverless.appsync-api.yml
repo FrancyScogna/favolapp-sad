@@ -1,0 +1,383 @@
+name: favolapp
+schema: ./schema.api.graphql
+authentication:
+  type: AMAZON_COGNITO_USER_POOLS
+  config:
+    awsRegion: eu-west-1
+    defaultAction: ALLOW
+    userPoolId: !Ref CognitoUserPool
+
+resolvers:
+
+  getMyUser:
+    type: Query
+    field: getMyUser
+    kind: UNIT
+    dataSource: usersTable
+    request: mapping-templates/Query.getMyUser.request.vtl
+    response: mapping-templates/Query.getMyUser.response.vtl
+  getUsersList:
+    type: Query
+    field: getUsersList
+    kind: UNIT
+    dataSource: usersTable
+    request: mapping-templates/Query.getUsersList.request.vtl
+    response: mapping-templates/Query.getUsersList.response.vtl
+  searchAllUsers:
+    type: Query
+    field: searchAllUsers
+    kind: UNIT
+    dataSource: usersTable
+    request: mapping-templates/Query.searchAllUsers.request.vtl
+    response: mapping-templates/Query.searchAllUsers.response.vtl
+  getPazientiList:
+    type: Query
+    field: getPazientiList
+    kind: UNIT
+    dataSource: pazientiTable
+    request: mapping-templates/Query.getPazientiList.request.vtl
+    response: mapping-templates/Query.getPazientiList.response.vtl
+  getUser:
+    type: Query
+    field: getUser
+    kind: UNIT
+    dataSource: getUserFunction
+  searchAllPazienti:
+    type: Query
+    field: searchAllPazienti
+    kind: UNIT
+    dataSource: pazientiTable
+    request: mapping-templates/Query.searchAllPazienti.request.vtl
+    response: mapping-templates/Query.searchAllPazienti.response.vtl
+  getMyPazienti:
+    type: Query
+    field: getMyPazienti
+    kind: UNIT
+    dataSource: pazientiTutorTable
+    request: mapping-templates/Query.getMyPazienti.request.vtl
+    response: mapping-templates/Query.getMyPazienti.response.vtl
+  searchMyPazienti:
+    type: Query
+    field: searchMyPazienti
+    kind: UNIT
+    dataSource: searchMyPazientiFunction
+  getCommonPazienti:
+    type: Query
+    field: getCommonPazienti
+    kind: UNIT
+    dataSource: getCommonPazientiFunction
+  getPazientiByUserId:
+    type: Query
+    field: getPazientiByUserId
+    kind: UNIT
+    dataSource: pazientiTutorTable
+    request: mapping-templates/Query.getPazientiByUserId.request.vtl
+    response: mapping-templates/Query.getPazientiByUserId.response.vtl
+  searchCommonPazienti:
+    type: Query
+    field: searchCommonPazienti
+    kind: UNIT
+    dataSource: searchCommonPazientiFunction
+  searchPazientiByUserId:
+    type: Query
+    field: searchPazientiByUserId
+    kind: UNIT
+    dataSource: searchPazientiByUserIdFunction
+  getPaziente:
+    type: Query
+    field: getPaziente
+    kind: UNIT
+    dataSource: getPazienteFunction
+  getAllReports:
+    type: Query
+    field: getAllReports
+    kind: UNIT
+    dataSource: getAllReportsFunction
+  getMyReport:
+    type: Query
+    field: getMyReport
+    kind: UNIT
+    dataSource: getMyReportFunction
+  getColleguesReports:
+    type: Query
+    field: getColleguesReports
+    kind: UNIT
+    dataSource: getColleguesReportsFunction
+  getMyCollegues:
+    type: Query
+    field: getMyCollegues
+    kind: UNIT
+    dataSource: getMyColleguesFunction
+  searchMyCollegues:
+    type: Query
+    field: searchMyCollegues
+    kind: UNIT
+    dataSource: searchMyColleguesFunction
+  getLogs:
+    type: Query
+    field: getLogs
+    kind: UNIT
+    dataSource: getLogsFunction
+  getReportsByOtherUser:
+    type: Query
+    field: getReportsByOtherUser
+    kind: UNIT
+    dataSource: getReportsByOtherUserFunction
+
+  #Nested
+  pazienteHydrate:
+    type: PazienteHydrate
+    field: items
+    kind: UNIT
+    dataSource: pazientiTable
+    request: mapping-templates/PazienteHydrate.items.request.vtl
+    response: mapping-templates/PazienteHydrate.items.response.vtl
+  pazienteSessionsHydrate:
+    type: Paziente
+    field: sessions
+    kind: UNIT
+    dataSource: sessionsTable
+    request: mapping-templates/Paziente.sessions.request.vtl
+    response: mapping-templates/Paziente.sessions.response.vtl
+  pazienteTutorsHydrate:
+    type: Paziente
+    field: tutors
+    kind: UNIT
+    dataSource: pazienteTutorsHydrateFunction
+  
+  #Mutations
+  updateAvatarURL:
+    type: Mutation
+    field: updateAvatarURL
+    kind: UNIT
+    dataSource: usersTable
+    request: mapping-templates/Mutation.updateAvatarURL.request.vtl
+    response: mapping-templates/Mutation.updateAvatarURL.response.vtl
+  editUserInfo:
+    type: Mutation
+    field: editUserInfo
+    kind: PIPELINE
+    functions:
+      - editUserInfo
+      - writeLog
+    request: mapping-templates/simplePipeline.request.vtl
+    response: mapping-templates/simplePipeline.response.vtl
+  signUpNewUser:
+    type: Mutation
+    field: signUpNewUser
+    kind: PIPELINE
+    functions:
+      - signUpNewUser
+      - writeLog
+    request: mapping-templates/simplePipeline.request.vtl
+    response: mapping-templates/simplePipeline.response.vtl
+  deleteUser:
+    type: Mutation
+    field: deleteUser
+    kind: PIPELINE
+    functions:
+      - deleteUser
+      - writeLog
+    request: mapping-templates/simplePipeline.request.vtl
+    response: mapping-templates/simplePipeline.response.vtl
+  createNewPaziente:
+    type: Mutation
+    field: createNewPaziente
+    kind: PIPELINE
+    functions:
+      - createNewPaziente
+      - writeLog
+    request: mapping-templates/simplePipeline.request.vtl
+    response: mapping-templates/simplePipeline.response.vtl
+  editPaziente:
+    type: Mutation
+    field: editPaziente
+    kind: PIPELINE
+    functions:
+      - editPaziente
+      - writeLog
+    request: mapping-templates/simplePipeline.request.vtl
+    response: mapping-templates/simplePipeline.response.vtl
+  markReportAsSeen:
+    type: Mutation
+    field: markReportAsSeen
+    kind: PIPELINE
+    functions:
+      - markReportAsSeen
+      - writeLog
+    request: mapping-templates/simplePipeline.request.vtl
+    response: mapping-templates/simplePipeline.response.vtl
+  createNewReport:
+    type: Mutation
+    field: createNewReport
+    kind: PIPELINE
+    functions:
+      - createNewReport
+      - writeLog
+    request: mapping-templates/simplePipeline.request.vtl
+    response: mapping-templates/simplePipeline.response.vtl
+  editReport:
+    type: Mutation
+    field: editReport
+    kind: PIPELINE
+    functions:
+      - editReport
+      - writeLog
+    request: mapping-templates/simplePipeline.request.vtl
+    response: mapping-templates/simplePipeline.response.vtl
+
+pipelineFunctions:
+  editUserInfo:
+    dataSource: usersTable
+    request: mapping-templates/Mutation.editUserInfo.request.vtl
+    response: mapping-templates/Mutation.editUserInfo.response.vtl
+  signUpNewUser:
+    dataSource: signUpNewUserFunction
+  deleteUser:
+    dataSource: deleteUserFunction
+  createNewPaziente:
+    dataSource: createNewPazienteFunction
+  editPaziente:
+    dataSource: editPazienteFunction
+  writeLog:
+    dataSource: writeLogFunction
+    request: mapping-templates/writelog.request.vtl
+    response: mapping-templates/writelog.response.vtl
+  markReportAsSeen:
+    dataSource: reportsTable
+    request: mapping-templates/Mutation.markReportAsSeen.request.vtl
+    response: mapping-templates/Mutation.markReportAsSeen.response.vtl
+  createNewReport:
+    dataSource: createNewReportFunction
+  editReport:
+    dataSource: editReportFunction
+
+dataSources:
+  usersTable:
+    type: AMAZON_DYNAMODB
+    config:
+      tableName: !Ref UsersTable
+  pazientiTable:
+    type: AMAZON_DYNAMODB
+    config:
+      tableName: !Ref PazientiTable
+  pazientiTutorTable:
+    type: AMAZON_DYNAMODB
+    config:
+      tableName: !Ref PazientiTutorTable
+  sessionsTable:
+    type: AMAZON_DYNAMODB
+    config:
+      tableName: !Ref SessionsTable
+  reportsTable:
+    type: AMAZON_DYNAMODB
+    config:
+      tableName: !Ref ReportsTable
+  signUpNewUserFunction:
+    type: AWS_LAMBDA
+    name: signUpNewUserFunction
+    config:
+      functionName: signUpNewUser
+  deleteUserFunction:
+    type: AWS_LAMBDA
+    name: deleteUserFunction
+    config:
+      functionName: deleteUser
+  createNewPazienteFunction:
+    type: AWS_LAMBDA
+    name: createNewPazienteFunction
+    config:
+      functionName: createNewPaziente
+  getUserFunction:
+    type: AWS_LAMBDA
+    name: getUserFunction
+    config:
+      functionName: getUser
+  searchMyPazientiFunction:
+    type: AWS_LAMBDA
+    name: searchMyPazientiFunction
+    config:
+      functionName: searchMyPazienti
+  getCommonPazientiFunction:
+    type: AWS_LAMBDA
+    name: getCommonPazientiFunction
+    config:
+      functionName: getCommonPazienti
+  searchCommonPazientiFunction:
+    type: AWS_LAMBDA
+    name: searchCommonPazientiFunction
+    config:
+      functionName: searchCommonPazienti
+  searchPazientiByUserIdFunction:
+    type: AWS_LAMBDA
+    name: searchPazientiByUserIdFunction
+    config:
+      functionName: searchPazientiByUserId
+  pazienteTutorsHydrateFunction:
+    type: AWS_LAMBDA
+    name: pazienteTutorsHydrateFunction
+    config:
+      functionName: pazienteTutorsHydrate
+  getPazienteFunction:
+    type: AWS_LAMBDA
+    name: getPazienteFunction
+    config:
+      functionName: getPaziente
+  editPazienteFunction:
+    type: AWS_LAMBDA
+    name: editPazienteFunction
+    config:
+      functionName: editPaziente
+  getAllReportsFunction:
+    type: AWS_LAMBDA
+    name: getAllReportsFunction
+    config:
+      functionName: getAllReports
+  getMyReportFunction:
+    type: AWS_LAMBDA
+    name: getMyReportFunction
+    config:
+      functionName: getMyReport
+  getColleguesReportsFunction:
+    type: AWS_LAMBDA
+    name: getColleguesReportsFunction
+    config:
+      functionName: getColleguesReports
+  getMyColleguesFunction:
+    type: AWS_LAMBDA
+    name: getMyColleguesFunction
+    config:
+      functionName: getMyCollegues
+  searchMyColleguesFunction:
+    type: AWS_LAMBDA
+    name: searchMyColleguesFunction
+    config:
+      functionName: searchMyCollegues
+  writeLogFunction:
+    type: AWS_LAMBDA
+    name: writeLogFunction
+    config:
+      functionName: writeLog
+  getLogsFunction:
+    type: AWS_LAMBDA
+    name: getLogsFunction
+    config:
+      functionName: getLogs
+  createNewReportFunction:
+    type: AWS_LAMBDA
+    name: createNewReportFunction
+    config:
+      functionName: createNewReport
+  getReportsByOtherUserFunction:
+    type: AWS_LAMBDA
+    name: getReportsByOtherUserFunction
+    config:
+      functionName: getReportsByOtherUser
+  editReportFunction:
+    type: AWS_LAMBDA
+    name: editReportFunction
+    config:
+      functionName: editReport
+
+substitutions:
+  PazientiTable: !Ref PazientiTable

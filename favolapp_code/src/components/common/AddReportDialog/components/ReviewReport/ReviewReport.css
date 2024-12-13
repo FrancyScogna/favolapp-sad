@@ -1,0 +1,90 @@
+.reviewreport-dialog-content .dialog-title .close-icon-button {
+  margin-left: auto;
+}
+
+.reviewreport-dialog-content .dialog-title .title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.reviewreport-dialog-content .grid-container {
+  width: 100%;
+  display: flex;
+}
+
+.reviewreport-dialog-content .grid-container .grid-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.reviewreport-dialog-content .grid-container .grid-item .alert {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.reviewreport-dialog-content .grid-container .grid-item .alert {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.reviewreport-dialog-content .grid-container .grid-item .section {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.reviewreport-dialog-content .grid-container .grid-item .section .section-text {
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.reviewreport-dialog-content
+  .grid-container
+  .grid-item
+  .section
+  .section-divider {
+  margin-inline: 5px;
+  flex: 1;
+}
+
+.reviewreport-dialog-content .grid-container .grid-item .attribute {
+  margin-right: 5px;
+  font-size: 18px;
+}
+
+.reviewreport-dialog-content .grid-container .grid-item .value {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.reviewreport-dialog-content .sessions-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.reviewreport-dialog-content .sessions-list .session-item {
+  display: flex;
+  width: 100%;
+}
+
+.reviewreport-dialog-content .tutors-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.reviewreport-dialog-content .tutors-list .tutor-item {
+  display: flex;
+  width: 100%;
+}
+
+.reviewreport-dialog-content .close-button {
+  margin-right: auto;
+}

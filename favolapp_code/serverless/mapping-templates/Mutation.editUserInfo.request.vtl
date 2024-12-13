@@ -1,0 +1,27 @@
+{
+    "version" : "2018-05-29",
+    "operation" : "UpdateItem",
+    "key": {
+        "id" : $util.dynamodb.toDynamoDBJson($context.arguments.editUser.id)
+    },
+    "update" : {
+        "expression" : "set #name = :name, surname = :surname, birthdate = :birthdate, phone_number = :phone_number, gender = :gender, codfis = :codfis, provincia = :provincia, comune = :comune, title = :title",
+        "expressionNames" : {
+            "#name" : "name"
+        },
+        "expressionValues" : {
+            ":name" : $util.dynamodb.toDynamoDBJson($context.arguments.editUser.name),
+            ":surname" : $util.dynamodb.toDynamoDBJson($context.arguments.editUser.surname),
+            ":birthdate" : $util.dynamodb.toDynamoDBJson($context.arguments.editUser.birthdate),
+            ":phone_number" : $util.dynamodb.toDynamoDBJson($context.arguments.editUser.phone_number),
+            ":gender" : $util.dynamodb.toDynamoDBJson($context.arguments.editUser.gender),
+            ":codfis" : $util.dynamodb.toDynamoDBJson($context.arguments.editUser.codfis),
+            ":provincia" : $util.dynamodb.toDynamoDBJson($context.arguments.editUser.provincia),
+            ":comune" : $util.dynamodb.toDynamoDBJson($context.arguments.editUser.comune),
+            ":title" : $util.dynamodb.toDynamoDBJson($context.arguments.editUser.title)
+        }
+    },
+    "condition" : {
+        "expression" : "attribute_exists(id)"
+    }
+}

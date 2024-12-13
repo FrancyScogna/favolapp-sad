@@ -1,0 +1,133 @@
+.activity-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.activity-page .title-container {
+  display: flex;
+  width: 100%;
+  padding-top: 10px;
+  padding-left: 20px;
+}
+
+.activity-page .title-container .title {
+  font-size: 30px;
+  font-weight: bold;
+  color: black;
+}
+
+.activity-page .toggle-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+  padding-inline: 20px;
+}
+
+.activity-page .toggle-buttons .toggle-button {
+  text-transform: none;
+}
+
+.activity-page .filter {
+  margin-top: 20px;
+  display: flex;
+  width: 100%;
+  padding-inline: 20px;
+  align-items: center;
+}
+
+.activity-page .filter-selection {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.activity-page .filter-selection .text {
+  color: black;
+  margin-right: 5px;
+}
+
+.activity-page .filter-selection .select {
+  width: 130px;
+}
+
+.activity-page
+  .filter-selection
+  .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  top: -6px;
+}
+
+.activity-page .filter-selected {
+  display: flex;
+  width: 100%;
+}
+
+.activity-page .filter-selected .insert-data {
+  display: flex;
+}
+
+.activity-page .filter-selected .text-field {
+  min-width: 170px;
+}
+
+.activity-page .filter-selected .insert-data .date-picker {
+  width: 170px;
+}
+
+.activity-page
+  .filter-selected
+  .insert-data
+  .date-picker
+  .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+  height: 7px;
+}
+
+.activity-page
+  .filter-selected
+  .insert-data
+  .date-picker
+  .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  top: -6px;
+}
+
+.activity-page .filter-selected .buttons {
+  display: flex;
+  width: 100%;
+}
+
+.activity-page .filter-selected .buttons .apply-filter {
+  margin-left: auto;
+}
+
+.activity-page .filter-selected .buttons .reset-filter {
+  margin-left: 5px;
+}
+
+.activity-page .activitylist-container {
+  display: flex;
+  width: 100%;
+}
+
+@media screen and (max-width: 990px) {
+  .activity-page .filter {
+    flex-direction: column;
+    align-items: start;
+  }
+  .activity-page .filter .filter-selection {
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .activity-page .filter .filter-selected {
+    flex-direction: column;
+    width: fit-content;
+  }
+
+  .activity-page .filter .filter-selected .buttons {
+    margin-top: 10px;
+  }
+}

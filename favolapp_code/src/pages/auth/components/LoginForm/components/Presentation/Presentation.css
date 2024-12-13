@@ -1,0 +1,84 @@
+.presentation-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.presentation-container .logo-container {
+  max-width: 400px;
+  max-height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.presentation-container .logo-container img {
+  width: 100%;
+  cursor: pointer;
+}
+
+.presentation-container .outer-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #007fff;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.presentation-container .outer-container .description {
+  display: flex;
+  margin: 20px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 810px;
+}
+
+.presentation-container .outer-container .description .text {
+  color: #007fff;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.presentation-container .authbuttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+  background-color: #007fff;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+
+.presentation-container .authbuttons-container .title {
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.presentation-container .authbuttons-container .description {
+  color: white;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.presentation-container .authbuttons-container .buttons .button {
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 20px;
+}
+
+@media screen and (max-width: 450px) {
+  .presentation-container .outer-container .description {
+    display: flex;
+    margin: 5px;
+    margin-inline: 0px;
+  }
+}

@@ -1,0 +1,138 @@
+.editreport-dialog {
+  padding: 0;
+  margin: 0;
+}
+
+.editreport-dialog .MuiPaper-root {
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.editreport-dialog .dialog-title {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.357);
+  padding-bottom: 7px;
+  display: flex;
+  align-items: center;
+}
+
+.editreport-dialog .dialog-title .close-icon-button {
+  margin-left: auto;
+}
+
+.editreport-dialog .dialog-title .title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.editreport-dialog .grid-container {
+  width: 100%;
+  display: flex;
+}
+
+.editreport-dialog .grid-container .grid-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.editreport-dialog .grid-container .grid-item .icon-error {
+  color: #d32f2f;
+  margin-left: 5px;
+}
+
+.editreport-dialog .grid-container .grid-item .alert {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.editreport-dialog .grid-container .grid-item .section {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.editreport-dialog .grid-container .grid-item .section .section-text {
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.editreport-dialog .grid-container .grid-item .section .section-divider {
+  margin-inline: 5px;
+  flex: 1;
+}
+
+.editreport-dialog .grid-container .grid-item .text-field {
+  width: 100%;
+}
+
+.editreport-dialog
+  .grid-container
+  .grid-item
+  .date-picker
+  .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+  height: 7px;
+}
+
+.editreport-dialog
+  .grid-container
+  .grid-item
+  .date-picker
+  .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  top: -6px;
+}
+
+.editreport-dialog .grid-container .grid-item .select-role {
+  width: 150px;
+}
+
+.editreport-dialog .grid-container .grid-item .select-city {
+  width: 130px;
+}
+
+.editreport-dialog .grid-container .grid-item .select-comune {
+  width: 300px;
+}
+
+.editreport-dialog .grid-container .grid-item .select-gender {
+  width: 130px;
+}
+
+.editreport-dialog-loading-comuni {
+  display: flex;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.editreport-dialog
+  .grid-container
+  .grid-item
+  .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  top: -6px;
+}
+
+.paz-div {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(230, 228, 228, 0.648);
+  border-radius: 10px;
+  padding-right: 20px;
+  height: 40px;
+  position: relative;
+  margin-top: 5px;
+}
+
+.item-fold-paz {
+  font-size: 18px !important;
+  text-overflow: ellipsis !important;
+  margin-right: 10px !important;
+}

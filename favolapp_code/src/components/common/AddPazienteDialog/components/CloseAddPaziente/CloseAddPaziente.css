@@ -1,0 +1,35 @@
+.closeaddaccount-dialog {
+  padding: 0;
+  margin: 0;
+}
+
+.closeaddaccount-dialog .MuiPaper-root {
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.closeaddaccount-dialog .dialog-title {
+  padding-bottom: 7px;
+  display: flex;
+  align-items: center;
+}
+
+.closeaddaccount-dialog .dialog-title .title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.closeaddaccount-dialog .dialog-content {
+  padding: 0;
+  padding-inline: 24px;
+  margin: 0;
+}
+
+.closeaddaccount-dialog .dialog-content .description {
+  margin-top: 20px;
+}
+
+.closeaddaccount-dialog .dialog-content .description-bold {
+  font-weight: bold;
+}

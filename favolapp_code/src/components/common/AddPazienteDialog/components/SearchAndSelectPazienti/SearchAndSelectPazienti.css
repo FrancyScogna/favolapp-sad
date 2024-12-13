@@ -1,0 +1,141 @@
+.searchandselect-dialog {
+  padding: 0;
+  margin: 0;
+}
+
+.searchandselect-dialog .MuiPaper-root {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  min-width: 700px;
+}
+
+.searchandselect-dialog .dialog-title {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.357);
+  padding-bottom: 7px;
+  display: flex;
+  align-items: center;
+}
+
+.searchandselect-dialog .dialog-title .close-icon-button {
+  margin-left: auto;
+}
+
+.searchandselect-dialog .dialog-title .title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.searchandselect-dialog .dialog-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.searchandselect-dialog .dialog-content .grid-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.searchandselect-dialog .dialog-content .grid-container .grid-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.searchandselect-dialog
+  .dialog-content
+  .grid-container
+  .grid-item
+  .search-textfield {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+
+.searchandselect-dialog
+  .dialog-content
+  .grid-container
+  .grid-item
+  .search-button {
+  margin-inline: 10px;
+  height: fit-content;
+  margin-bottom: 2px;
+}
+
+.searchandselect-dialog
+  .dialog-content
+  .grid-container
+  .grid-item
+  .result-text {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.searchandselect-dialog .dialog-content .grid-container .grid-item .list-items {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.searchandselect-dialog
+  .dialog-content
+  .grid-container
+  .grid-item
+  .list-items
+  .list-item {
+  display: flex;
+  width: 100%;
+}
+
+.searchandselect-dialog
+  .dialog-content
+  .grid-container
+  .grid-item
+  .list-items
+  .list-item
+  .item-fold {
+  font-size: 16px;
+  text-overflow: ellipsis;
+  margin: auto;
+}
+
+.searchandselect-dialog
+  .dialog-content
+  .grid-container
+  .grid-item
+  .search-more {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.searchandselect-dialog .dialog-content .grid-container .empty-search {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  justify-content: center;
+}
+
+.searchandselect-dialog .dialog-content .grid-container .empty-search .empty {
+  font-size: 18px;
+}
+
+.searchandselect-dialog .dialog-content .grid-container .loading-search {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  justify-content: center;
+}
+
+@media screen and (max-width: 700px) {
+  .searchandselect-dialog .MuiPaper-root {
+    min-width: 100%;
+  }
+}

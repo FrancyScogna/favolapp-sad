@@ -1,0 +1,13 @@
+{
+    "version" : "2017-02-28",
+    "operation" : "Query",
+    "index": "UserIndex",
+    "query" : {
+        "expression" : "userId = :userId",
+        "expressionValues" : {
+            ":userId" : $util.dynamodb.toDynamoDBJson($context.identity.username)
+        }
+    },
+    "nextToken" : $util.toJson($context.arguments.nextToken),
+    "limit" : $util.toJson($context.arguments.limit),
+}

@@ -1,0 +1,119 @@
+.edituser-dialog {
+  padding: 0;
+  margin: 0;
+}
+
+.edituser-dialog .MuiPaper-root {
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.edituser-dialog .dialog-title {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.357);
+  padding-bottom: 7px;
+  display: flex;
+  align-items: center;
+}
+
+.edituser-dialog .dialog-title .close-icon-button {
+  margin-left: auto;
+}
+
+.edituser-dialog .dialog-title .title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.edituser-dialog .grid-container {
+  width: 100%;
+  display: flex;
+}
+
+.edituser-dialog .grid-container .grid-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.edituser-dialog .grid-container .grid-item .icon-error {
+  color: #d32f2f;
+  margin-left: 5px;
+}
+
+.edituser-dialog .grid-container .grid-item .alert {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.edituser-dialog .grid-container .grid-item .section {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.edituser-dialog .grid-container .grid-item .section .section-text {
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.edituser-dialog .grid-container .grid-item .section .section-divider {
+  margin-inline: 5px;
+  flex: 1;
+}
+
+.edituser-dialog .grid-container .grid-item .text-field {
+  width: 100%;
+}
+
+.edituser-dialog
+  .grid-container
+  .grid-item
+  .date-picker
+  .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+  height: 7px;
+}
+
+.edituser-dialog
+  .grid-container
+  .grid-item
+  .date-picker
+  .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  top: -6px;
+}
+
+.edituser-dialog .grid-container .grid-item .select-role {
+  width: 150px;
+}
+
+.edituser-dialog .grid-container .grid-item .select-city {
+  width: 130px;
+}
+
+.edituser-dialog .grid-container .grid-item .select-comune {
+  width: 300px;
+}
+
+.edituser-dialog .grid-container .grid-item .select-gender {
+  width: 130px;
+}
+
+.edituser-dialog-loading-comuni {
+  display: flex;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.edituser-dialog
+  .grid-container
+  .grid-item
+  .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  top: -6px;
+}

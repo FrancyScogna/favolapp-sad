@@ -1,0 +1,34 @@
+Code:
+  Location: https://awslambda-eu-west-1-tasks.s3.eu-west-1.amazonaws.com/snapshots/654654599269/DefineAuthChallenge-09312605-5339-40c6-94a4-b1cad5b7e810?versionId=Cc50xjw3hGsIcKkQcP9HWj7LFeN3gbJ3&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEGIaCWV1LXdlc3QtMSJHMEUCIGydC0GDyQpJ8NIPabqFkgN120UxEV4qsJE9Ou%2FGPOJlAiEAhp5wCmFCyc3HGthE2LclFy%2B7fC9n4w3TJ%2FnEayUYZa8quQUI2%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAEGgw5NTQzNjkwODI1MTEiDIb0JTHenX9%2FftkH8iqNBcF23UZaSpkBhMJ7D4EWmfod%2BZs07MJHvFdWOS5WYfH3VoP23wIm0tNL5B38SuApdoDhIXEa1zz2FrBWsFayfGEMmf1zjkAH0esIxCsH4oI8p4wuoEkj8TNsozGNy1PmfNGpNnBvoaWSF%2BxnawP5YJvAbKqoe0wWRtDF7T5%2FnqpjjruMrLr11eVkV6I7K167FC9A3517LZRAs96I2kpEAg8OyZMIHqFm8orYYOd7itqqkRm36Qb6PzpTn1O2P%2BnWcrXSpX56znpTuCGGkrmBRTSm6DRoeZ159nHPw3LzX6cfMoE9DM70iRa5z8b%2BSoAop0k5fxzRq91mTGhpvNBTqZ5ckns7ZfYGVQ8trcOfB2faskvYffLojV4Hp0%2BtsVSyu4bqYz6jO1TbQkew0t9QBpcF1xyiDtCPAgq%2F8oFGGp09hTy8guTQgiwbwRBrqcuPePO1pL%2FnwTr4Kc6QfpXeAsgYzWFWcOw%2FXT6g8wXlelE%2Bz00c5XO4biYptSV2UlNlWHXvm%2BSEnQMSPmzunEsVH01cJwrAB7kVtPr3JSDlneS5xoWq49J63nxOU3fP%2B0baBNVDEBAe%2Ffmv9%2Bo%2BrcdLFuyA77jPpfyn%2B1fWj0w6ar13m%2FQIl1PQxB6GrJdNa63d9XvQLx8DFehv1YaKCwaj11rcbhdQSopRigm1zf2Of1rP08OfU59AZhAYaE4wpXix62hPxQ0xPw%2BReZCG7pt3Cj1iYZ7H7cowxOHXKopHK6WLL95wKLB7IHwvTG0auHxuTNwu6PIZnzrax%2BbOyFCMep4lsh8zgJh8VMjPt2%2F4soorotJb%2BXC2%2BiJ77aBmBYZcIIIL608dUiSkSJMZirYLRHttEy5sbybELhnuepP3MICE07IGOrEB9LWM%2Br0O2qxm1khS4FIhSAHReBzNQgg4vCj9EEPqvMFsiPCnBWjrYDV1vZuRv3tu89m7txLPEQy2TvlDjmnoQ4iB%2B6Qj1R6CRYdSlDuV%2BrKiYajZwNXntwHfGsimdNrHfopoA2C5QWmHh%2FRMqK7FXqybCKxn2W8rJE%2FnTZIzg8561LUqplL4lHzPGMbIX8HwzsUG9W9WL1E4MqWdQHqnfUALpS3AisS44e4nPIHSsxuu&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240527T182625Z&X-Amz-SignedHeaders=host&X-Amz-Expires=600&X-Amz-Credential=ASIA54NGUQSHVD64HBXL%2F20240527%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Signature=e6f541277b0fa555b486eb13420fd4991847d85b6e949aa7e6e0b3520ef2e225
+  RepositoryType: S3
+Configuration:
+  Architectures:
+  - x86_64
+  CodeSha256: ZB5GfXIJTpahzzkhJe8h70/yuNYh1dc3HkoEDv+5rLw=
+  CodeSize: 926
+  Description: ''
+  EphemeralStorage:
+    Size: 512
+  FunctionArn: arn:aws:lambda:eu-west-1:654654599269:function:DefineAuthChallenge
+  FunctionName: DefineAuthChallenge
+  Handler: index.handler
+  LastModified: 2024-05-27T16:21:53.000+0000
+  LastUpdateStatus: Successful
+  LoggingConfig:
+    LogFormat: Text
+    LogGroup: /aws/lambda/DefineAuthChallenge
+  MemorySize: 128
+  PackageType: Zip
+  RevisionId: 6a70009c-a959-472c-a89f-20649b960c93
+  Role: arn:aws:iam::654654599269:role/service-role/DefineAuthChallengeRole
+  Runtime: nodejs16.x
+  RuntimeVersionConfig:
+    RuntimeVersionArn: arn:aws:lambda:eu-west-1::runtime:30606511772fdc0f370d2d81900da3f8c7cd524f718237c6bebd61e4e1e853fa
+  SnapStart:
+    ApplyOn: None
+    OptimizationStatus: Off
+  State: Active
+  Timeout: 3
+  TracingConfig:
+    Mode: PassThrough
+  Version: $LATEST

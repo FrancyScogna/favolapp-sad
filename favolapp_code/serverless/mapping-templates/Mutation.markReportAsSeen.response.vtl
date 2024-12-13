@@ -1,0 +1,11 @@
+#if($ctx.error)
+  #set($result = {})
+  #set($error = {
+    "message": "$ctx.error.message",
+    "type": "$ctx.error.type"
+  })
+  $util.qr($result.put("error", $error))
+  $util.toJson($result)
+#else
+  $util.toJson($ctx.result)
+#end

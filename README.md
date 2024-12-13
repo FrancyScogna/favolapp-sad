@@ -6,7 +6,7 @@ FavolApp è concepita come un'innovativa piattaforma digitale per la gestione de
 
 ## La Documentazione
 
-E’ possibile consultare la completa documentazione al seguente link [Documentazione](./Documentazione_Progetto_SAD_Francesco_Scognamiglio_M63001364_Felice Micillo_M63001377.pdf)
+E’ possibile consultare la completa documentazione al seguente link: [Documentazione](https://github.com/FrancyScogna/favolapp-sad/blob/main/Documentazione_Progetto_SAD_Francesco_Scognamiglio_M63001364_Felice%20Micillo_M63001377.pdf)
 
 - Introduzione
 - Avvio della progettazione

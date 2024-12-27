@@ -42,23 +42,6 @@ Il System Context Diagram, offre una panoramica ad alto livello delle interazion
 
 ![SCD.png](./readme_images/SCD.png)
 
-## Guida per l’utilizzo dell’applicazione
-
-Al seguente link si può provare la web application
-[https://www.favolapp.it/](https://www.favolapp.it/)
-
-🔒 **Credenziali di accesso**
-
-👔 **Tutor:**
-
-- Email: sadtutor24@gmail.com
-- Password: **#w}n7YK4Wn**
-
-👔 **Supervisore:**
-
-- Email: favolappmin24@gmail.com
-- Password: **3uo2ZUUoy`**
-
 # Gli Autori
 
 - Francesco Scognamiglio
